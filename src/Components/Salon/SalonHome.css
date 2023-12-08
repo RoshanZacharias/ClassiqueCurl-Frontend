@@ -1,0 +1,31 @@
+.service{
+    margin: 4rem 6rem;
+    text-align: center;
+}
+
+.service h1{
+    font-size: 3rem;
+    color: black;
+}
+
+
+.stylists{
+    margin: 4rem 6rem;
+    text-align: center;
+}
+
+.stylists h1{
+    font-size: 3rem;
+    color: black;
+}
+
+
+.time-slot{
+    margin: 4rem 6rem;
+    text-align: center;
+}
+
+.time-slot h1{
+    font-size: 3rem;
+    color: black;
+}

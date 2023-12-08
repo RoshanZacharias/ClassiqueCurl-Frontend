@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { setSalonAccessToken, setSalonUser } from '../../Redux/SalonSlice';
 
 import {
   MDBBtn,
@@ -18,6 +20,7 @@ from 'mdb-react-ui-kit';
 
 function SalonLogin() {
   const navigator = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -55,8 +58,13 @@ function SalonLogin() {
       .then((response) =>{
         localStorage.setItem('accessToken', response.data.access);
         localStorage.setItem('refreshToken', response.data.refresh);
+        console.log("***********************");
         console.log(response.data);
+        console.log("************Salon***********");
+        console.log(response.data.salon);
         toast.success('Login Successful');
+        dispatch(setSalonAccessToken(response.data.data));
+        dispatch(setSalonUser(response.data.salon));
 
         navigator('/salon-home');
       })

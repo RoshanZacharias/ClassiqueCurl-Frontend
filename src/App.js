@@ -13,6 +13,15 @@ import SalonRequestApproval from './Components/Salon/SalonRequestApproval.js';
 import SalonHomePage from './Pages/SalonHomePage.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AddService from './Components/AddService.js';
+import AddStylist from './Components/AddStylists.js';
+import AddTimeSlot from './Components/AddTimeSlot.js';
+import SalonProfile from './Components/Salon/SalonProfile.js';
+import SalonDetails from './Components/User/SalonDetails.js';
+import BookingOverview from './Components/User/BookingOverview.js';
+import SuccessPage from './Components/SuccessMessage.js';
+import BookingsPage from './Components/BookingsPage.js';
+import SalonBookingsView from './Components/Salon/SalonBookings.js';
 
 
 
@@ -38,9 +47,18 @@ function App() {
         <Route path='/admin-home' element={<AdminHomePage/>} />
         <Route path='/signup' element={<UserRegister/>}></Route>
         <Route path='/login' element={<UserLogin/>} />
+        <Route path='/salon-details/:id' element={<SalonDetails/>} />
+        <Route path='/salon-details/:id/booking-overview/:userId/:appointmentId' element={<BookingOverview />} />
+        <Route path='/success' element={<SuccessPage/>} />
+        <Route path= '/bookings' element={<BookingsPage/>} />
         <Route path='/salon-register' element={<SalonRegister/>}/>
         <Route path='/salon-login' element={<SalonLogin/>}/>
         <Route path='/salon-home' element={<SalonHomePage/>}/>
+        <Route path='/salon-home/add-service' element={<AddService/>} />
+        <Route path='/salon-home/add-stylist' element={<AddStylist/>} />
+        <Route path='/salon-home/add-timeslot' element={<AddTimeSlot/>} />
+        <Route path='/salon-home/salon-profile' element={<SalonProfile/>} />
+        <Route path='/salon-home/salon-bookings' element={<SalonBookingsView/>} />
         <Route path='/admin-login' element={<AdminLogin/>} />
         <Route path='/admin-home/salon-list' element={<SalonList/>} />
         <Route path='/admin-home/salon-list/salon-request-approval/:salonId' element={<SalonRequestApproval/>} />

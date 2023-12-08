@@ -1,27 +1,10 @@
-import axios from 'axios';
 
-const logoutapi = async () => {
-   
-    try {
-       
-      const response = await axios.post(
-        'http://127.0.0.1:8000/logout/'
-        
-      );
-      localStorage.removeItem('access_token');
-  
-      // Handle the response as needed
-      console.log(response.data);
-    } catch (error) {
-      // Handle errors
-      console.error('Error during logout:', error);
-    }
-  };
 
 
 
 
 export const MenuItems = [
+  
     {
         title: "Home",
         url: '/',
@@ -63,6 +46,14 @@ export const MenuItems = [
         cName: 'nav-links',
         icon: "fa-solid fa-right-to-bracket"
     },
+
+    {
+        title: "Logout",
+        url: '/login',
+        
+        cName: 'nav-links',
+        icon: "fa-solid fa-right-to-bracket",
+      },
 
    
 ]

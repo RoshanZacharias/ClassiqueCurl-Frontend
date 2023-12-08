@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { setAccessToken, setUser } from '../../Redux/UserSlice';
 
 
 
@@ -22,6 +24,7 @@ from 'mdb-react-ui-kit';
 
 function UserLogin() {
   const navigator = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -63,6 +66,10 @@ function UserLogin() {
           localStorage.setItem('refreshToken', response.data.refresh);
           console.log("response.data", response.data);
           console.log(response.data);
+          dispatch(setAccessToken(response.data.data));
+          dispatch(setUser(response.data.user));
+          
+
           // Redirect to the desired page after successful login
           toast.success('Login Successful');
           navigator('/');
@@ -112,17 +119,46 @@ function UserLogin() {
               </div>
 
               <MDBBtn className="mb-4 w-75" type='submit' onClick={handleLogin}>Sign in</MDBBtn>
-              {/* <GoogleOAuthProvider clientId="863926768719-05krrpimr8g0ietobt4rfgh03fmi88ri.apps.googleusercontent.com">
+              <GoogleOAuthProvider clientId="863926768719-05krrpimr8g0ietobt4rfgh03fmi88ri.apps.googleusercontent.com">
                 <GoogleLogin
                     onSuccess={credentialResponse => {
                       const decoded = jwtDecode(credentialResponse.credential);
                       console.log(decoded);
+
+                      axios
+        .post('http://localhost:8000/user-google-auth/', {
+          email: decoded.email,
+          name: decoded.given_name,
+        }, { withCredentials: true })
+        .then((response) => {
+          localStorage.setItem('accessToken', response.data.access);
+          localStorage.setItem('refreshToken', response.data.refresh);
+          console.log("response.data", response.data);
+          console.log(response.data);
+          dispatch(setAccessToken(response.data.data));
+          dispatch(setUser(response.data.user));
+          
+
+          // Redirect to the desired page after successful login
+          toast.success('Login Successful');
+          navigator('/');
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            // Unauthorized: Invalid credentials
+            setEmailError('Invalid email or password');
+            setPasswordError('Invalid email or password');
+          } else {
+            // Other errors
+            console.error('Login error:', error);
+          }
+        });
                     }}
                     onError={() => {
                       console.log('Login Failed');
                     }}
                   />
-            </GoogleOAuthProvider> */}
+            </GoogleOAuthProvider>
 
             </MDBCardBody>
             

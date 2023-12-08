@@ -10,7 +10,7 @@ export const SalonMenuItems = [
 
     {
         title: "Profile",
-        url: '/salon-profile',
+        url: '/salon-home/salon-profile',
         cName: 'nav-links',
         icon: "fa-solid fa-user"
     },
@@ -24,7 +24,7 @@ export const SalonMenuItems = [
 
     {
         title: "Bookings",
-        url: '/salon-bookings',
+        url: '/salon-home/salon-bookings',
         cName: 'nav-links',
         icon: "fa-solid fa-bookmark"
     },
