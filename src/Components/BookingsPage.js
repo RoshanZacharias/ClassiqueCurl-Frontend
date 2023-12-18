@@ -14,33 +14,52 @@ const BookingsPage = () => {
     console.log(userId)
     const [bookings, setBookings] = useState([]);
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/bookings/${userId}/`);
-        setBookings(response.data);
-        console.log(response.data)
-      } catch (error) {
-        console.error('Error fetching bookings', error);
-      }
-    };
+    useEffect(() => {
+      const fetchBookings = async () => {
+        try {
+          const response = await axios.get(`http://127.0.0.1:8000/bookings/${userId}/`);
+          const reversedBookings = response.data.reverse(); // Reverse the array
+          setBookings(reversedBookings);
+          console.log('***BOOKINGS***', reversedBookings);
+        } catch (error) {
+          console.error('Error fetching bookings', error);
+        }
+      };
+    
+      fetchBookings();
+    }, []);
+    
 
-    fetchBookings();
-  }, []); 
 
-
-  const handleCancelBooking = async (appointmentId) => {
+  const handleCancelBooking = async (orderId) => {
     try {
-      const response = await axios.patch(`http://127.0.0.1:8000/appointments/update-booking-status/${appointmentId}/`, {
-        is_Booked: false,
-      });
-      setBookings((prevBookings) => prevBookings.filter((booking) => booking.id !== appointmentId));
-  
-      console.log('Booking canceled successfully');
+      const response = await axios.patch(`http://127.0.0.1:8000/orders/cancel/${orderId}/`);
+      setBookings((prevBookings) =>
+        prevBookings.map((booking) =>
+          booking.id === orderId ? { ...booking, isPaid: false, status: 'Cancelled' } : booking
+        )
+      );
+      console.log('Order canceled successfully');
     } catch (error) {
-      console.error('Error canceling booking', error);
+      console.error('Error canceling order', error);
     }
   };
+
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'Pending':
+        return 'orange';
+      case 'Completed':
+        return 'green';
+      case 'Cancelled':
+        return 'red';
+      default:
+        return 'black'; // Default color, you can change it as needed
+    }
+  };
+  
+
 
 
 
@@ -59,6 +78,8 @@ const BookingsPage = () => {
                 <th>Stylist</th>
                 <th>Date</th>
                 <th>Time Slot</th>
+                <th>Amount</th>
+                <th>Status</th>
                 <th>Actions</th>
                 </tr>
             </thead>
@@ -67,19 +88,28 @@ const BookingsPage = () => {
                 <tr key={booking.id}>
                     <td>{booking.id}</td>
                     <td>{booking.salon_name}</td>
-                    <td>{booking.service.service_name}</td>
-                    <td>{booking.stylist.stylist_name}</td>
-                    <td>{booking.date}</td>
-                    <td>{`${booking.time_slot.day}: ${booking.time_slot.start_time} - ${booking.time_slot.end_time}`}</td>
+                    <td>{booking.order_service}</td>
+                    <td>{booking.order_stylist}</td>
+                    <td>{booking.time_slot_date}</td>
+                    <td>{`${booking.time_slot_day}: ${booking.time_slot_start_time} - ${booking.time_slot_end_time}`}</td>
+                    <td>₹ {booking.order_amount}</td>
+                    <td style={{ color: getStatusColor(booking.status) }}>{booking.status}</td>
                     <td>
-                    <AlertDialogExample
-                        className = 'text-center w-50'
-                        buttonText= 'Cancel'
-                        title='CANCEL'
-                        message='Are you sure you want to cancel appointment?'
-                        colorScheme='red'
-                        onConfirm={() => handleCancelBooking(booking.id)}  />
+                    {booking.status === 'Pending' ? (
+                      <AlertDialogExample
+                        className="text-center w-50"
+                        buttonText="Cancel"
+                        title="CANCEL"
+                        message="Are you sure you want to cancel appointment?"
+                        colorScheme="red"
+                        onConfirm={() => handleCancelBooking(booking.id)}
+                      />
+                    ) : null}
+
+                      {console.log('Booking status:', booking.status, 'Is Paid:', booking.isPaid)}
                     </td>
+
+
                 </tr>
                 ))}
             </tbody>

@@ -10,6 +10,11 @@ import SalonNavbar from '../Navbar/SalonNavbar';
 const SalonBookingsView = () => {
     const salon = useSelector(state => state.salon);
     const salonId = salon.salonUser.id
+    const statusColors = {
+      Pending: 'orange',
+      Completed: 'green',
+      Cancelled: 'red',
+    };
     
     const [bookedAppointments, setBookedAppointments] = useState([])
 
@@ -29,6 +34,35 @@ const SalonBookingsView = () => {
       }, []); 
 
 
+      const handleStatusChange = async (orderId, newStatus) => {
+        try {
+          // Make a PATCH request to update the status
+          const response = await axios.patch(
+            `http://127.0.0.1:8000/salon-side/order/update-status/${orderId}/`,
+            { status: newStatus }
+          );
+    
+          // Check if the request was successful
+          if (response.status === 200) {
+            // Update the status in the local state
+            const updatedAppointments = bookedAppointments.map((appointment) =>
+              appointment.id === orderId
+                ? { ...appointment, status: newStatus }
+                : appointment
+            );
+            setBookedAppointments(updatedAppointments);
+    
+            // Log success or perform any other actions as needed
+            console.log('Order status updated successfully');
+          }
+        } catch (error) {
+          // Handle errors
+          console.error('Error updating order status', error);
+        }
+    };
+    
+
+
 
   return (
     <div>
@@ -44,8 +78,10 @@ const SalonBookingsView = () => {
                     <th>User Email</th>
                     <th>Service</th>
                     <th>Stylist</th>
+                    <th>Amount</th>
                     <th>Date</th>
                     <th>Time Slot</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,10 +90,25 @@ const SalonBookingsView = () => {
                         <td>{booking.id}</td>
                         <td>{booking.user_name}</td>
                         <td>{booking.user_email}</td>
-                        <td>{booking.service.service_name}</td>
-                        <td>{booking.stylist.stylist_name}</td>
-                        <td>{booking.date}</td>
-                        <td>{`${booking.time_slot.day}: ${booking.time_slot.start_time} - ${booking.time_slot.end_time}`}</td>
+                        <td>{booking.order_service}</td>
+                        <td>{booking.order_stylist}</td>
+                        <td>₹ {booking.order_amount}</td>
+                        <td>{booking.time_slot_date}</td>
+                        <td>{`${booking.time_slot_day}: ${booking.time_slot_start_time} - ${booking.time_slot_end_time}`}</td>
+                        <td>
+                          <select
+                            value={booking.status}
+                            onChange={(e) => handleStatusChange(booking.id, e.target.value)}
+                            style={{ color: statusColors[booking.status] }}
+                          >
+                            {Object.keys(statusColors).map((status) => (
+                              <option key={status} value={status} style={{ color: statusColors[status] }}>
+                                {status}
+                              </option>
+                            ))}
+                          </select>
+                        </td>
+
                     </tr>
                 ))}
             </tbody>

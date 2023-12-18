@@ -22,6 +22,7 @@ import BookingOverview from './Components/User/BookingOverview.js';
 import SuccessPage from './Components/SuccessMessage.js';
 import BookingsPage from './Components/BookingsPage.js';
 import SalonBookingsView from './Components/Salon/SalonBookings.js';
+import UserProfile from './Components/User/UserProfile.js';
 
 
 
@@ -51,6 +52,7 @@ function App() {
         <Route path='/salon-details/:id/booking-overview/:userId/:appointmentId' element={<BookingOverview />} />
         <Route path='/success' element={<SuccessPage/>} />
         <Route path= '/bookings' element={<BookingsPage/>} />
+        <Route path='/profile' element={<UserProfile/>} />
         <Route path='/salon-register' element={<SalonRegister/>}/>
         <Route path='/salon-login' element={<SalonLogin/>}/>
         <Route path='/salon-home' element={<SalonHomePage/>}/>
