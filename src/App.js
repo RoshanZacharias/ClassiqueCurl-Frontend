@@ -23,7 +23,8 @@ import SuccessPage from './Components/SuccessMessage.js';
 import BookingsPage from './Components/BookingsPage.js';
 import SalonBookingsView from './Components/Salon/SalonBookings.js';
 import UserProfile from './Components/User/UserProfile.js';
-
+import ChatComponent from './Components/Messages/Message.jsx';
+import SalonChatComponent from './Components/Messages/SalonMessage.jsx';
 
 
 
@@ -53,6 +54,7 @@ function App() {
         <Route path='/success' element={<SuccessPage/>} />
         <Route path= '/bookings' element={<BookingsPage/>} />
         <Route path='/profile' element={<UserProfile/>} />
+        <Route path='/messages' element={<ChatComponent/>} />
         <Route path='/salon-register' element={<SalonRegister/>}/>
         <Route path='/salon-login' element={<SalonLogin/>}/>
         <Route path='/salon-home' element={<SalonHomePage/>}/>
@@ -61,6 +63,7 @@ function App() {
         <Route path='/salon-home/add-timeslot' element={<AddTimeSlot/>} />
         <Route path='/salon-home/salon-profile' element={<SalonProfile/>} />
         <Route path='/salon-home/salon-bookings' element={<SalonBookingsView/>} />
+        <Route path='/salon-home/salon-messages' element={<SalonChatComponent/>} />
         <Route path='/admin-login' element={<AdminLogin/>} />
         <Route path='/admin-home/salon-list' element={<SalonList/>} />
         <Route path='/admin-home/salon-list/salon-request-approval/:salonId' element={<SalonRequestApproval/>} />

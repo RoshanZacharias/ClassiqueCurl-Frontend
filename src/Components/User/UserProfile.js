@@ -1,69 +1,50 @@
-import React, {useState, useEffect} from 'react'
-import { Button, Card } from 'react-bootstrap'
-import axios from 'axios'
-import {useSelector} from 'react-redux'
-
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import UserNavbar from '../Navbar/UserNavbar';
+import Footer from '../Footer/Footer';
 
 const UserProfile = () => {
-    const user = useSelector(state => state.user);
-    const userId = user.user.id
-    console.log(userId)
+  const [walletBalance, setWalletBalance] = useState(null);
+  const user = useSelector(state => state.user);
+  const userId = user.user.id
+    
 
-    const [showWallet, setShowWallet] = useState(false);
-    const [reimbursedAmount, setReimbursedAmount] = useState(0);
-    const [bookings, setBookings] = useState([]);
-
-
-    useEffect(() => {
-        const fetchBookings = async () => {
-          try {
-            const response = await axios.get(`http://127.0.0.1:8000/bookings/${userId}/`);
-            const reversedBookings = response.data.reverse(); // Reverse the array
-            setBookings(reversedBookings);
-            console.log('***BOOKINGS***', reversedBookings);
-          } catch (error) {
-            console.error('Error fetching bookings', error);
-          }
-        };
-      
-        fetchBookings();
-      }, []);
-
-      const handleWalletClick = async () => {
-        try {
-            const response = await axios.get('http://127.0.0.1:8000/orders/reimbursed-sum/', {
-                headers: {
-                    Authorization: `Bearer ${yourAuthToken}`,  // Replace with your actual authentication token
-                },
-            });
-            setReimbursedAmount(response.data.sum_reimbursed_amount);
-            setShowWallet(true);
-        } catch (error) {
-            console.error('Error fetching reimbursed amount', error);
-        }
+  useEffect(() => {
+    // Fetch wallet information from the backend
+    const fetchWalletBalance = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/wallet/${userId}/`);
+        const data = await response.json();
+        setWalletBalance(data.wallet_balance);
+      } catch (error) {
+        console.error('Error fetching wallet balance:', error);
+      }
     };
-    
-    
+
+    fetchWalletBalance();
+  }, []);  // Empty dependency array ensures the effect runs only once on component mount
 
   return (
-    <div>
-      <h1>User Profile</h1>
-      <Button variant='primary' onClick= {()=> handleWalletClick(bookings.id)}>
-        Wallet
-      </Button>
-
-      {showWallet && (
-        <Card style={{width: '18rem', marginTop: '20px'}}>
-            <Card.Body>
-                <Card.Title>Your Wallet</Card.Title>
-                <Card.Text>
-                    Reimbursed Amount: ₹ {reimbursedAmount.toFixed(2)}
-                </Card.Text>
-            </Card.Body>
-        </Card>
-      )}
+    <div> 
+      <UserNavbar/>
+    <div className="container mt-4" style={{marginBottom: '500px'}}>
+      <div className="card">
+        <div className="card-header">
+          <h1 className="card-title">User Profile</h1>
+        </div>
+        <div className="card-body">
+          {walletBalance !== null ? (
+            <p className="card-text">Wallet Balance: ${walletBalance}</p>
+          ) : (
+            <p className="card-text">Loading wallet balance...</p>
+          )}
+        </div>
+      </div>
     </div>
+    <Footer/>
+    </div>
+    
   );
 };
 
-export default UserProfile
+export default UserProfile;

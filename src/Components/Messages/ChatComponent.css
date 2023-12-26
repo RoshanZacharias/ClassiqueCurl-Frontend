@@ -1,0 +1,194 @@
+.chat-container {
+    display: flex;
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  
+
+  .doctor-list-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .doctor-list-item img {
+    border-radius: 50%;
+  }
+  
+  .doctor-list-item .flex-grow-1 {
+    margin-left: 10px;
+  }
+
+  .small {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    font-size: x-large;
+  }
+  /* List of upcoming appointments on the left side */
+  .appointments-list {
+    flex: 1;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+  }
+  
+  .appointments-list h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .appointments-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .appointments-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s;
+  }
+  
+  .appointments-list li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Chat window on the right side */
+  .chat-window {
+    flex: 2;
+    padding: 10px;
+  }
+  
+  /* Information about the selected appointment */
+  .selected-appointment-info {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .selected-appointment-info h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  /* Messages container */
+  .chat-messages {
+    max-height: 300px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Individual chat message */
+  .message {
+    background-color: #e6f7ff;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  
+  /* Input box for typing messages */
+  .message-input {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+  .message-input input {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .message-input button {
+    padding: 8px 12px;
+    margin-left: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+  
+  .message-input button:hover {
+    background-color: #45a049;
+  }
+  
+  .message {
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .sender {
+    background-color: #4caf50; /* Green color for sender's messages */
+    color: white;
+    align-self: flex-end;
+  }
+  
+  .receiver {
+    background-color: #f1f0f0; /* Light gray color for receiver's messages */
+    color: black;
+    align-self: flex-start;
+  }
+
+  .message-right {
+    background-color: #4caf50; /* Green color for sender's messages */
+    color: white;
+  }
+  
+  .message-left {
+    background-color: #f1f0f0; /* Light gray color for receiver's messages */
+    color: black;
+  }
+  
+  .chat-message-left,
+  .chat-message-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chat-message-left img,
+  .chat-message-right img {
+    margin-right: 1rem;
+  }
+  
+  .chat-message-left .text-muted,
+  .chat-message-right .text-muted {
+    margin-top: 0.2rem;
+  }
+
+  .rounded-circle{
+    height: 80px;
+    width: 80px;
+  }
+
+
+  .message-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .sent-message {
+    background-color: #4caf50;
+    color: white;
+    align-self: flex-end;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 5px; /* Adjust spacing between messages if needed */
+    margin-left: 5px; /* Adjust spacing between messages if needed */
+}
+  
+.received-message {
+    background-color: #f1f0f0;
+    color: black;
+    align-self: flex-start;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 5px; /* Adjust spacing between messages if needed */
+    margin-right: 5px; /* Adjust spacing between messages if needed */
+}
+  

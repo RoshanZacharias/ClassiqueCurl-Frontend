@@ -17,7 +17,7 @@ export const SalonMenuItems = [
 
     {
         title: "Messages",
-        url: '/salon-messages',
+        url: '/salon-home/salon-messages',
         cName: 'nav-links',
         icon: "fa-solid fa-message"
     },

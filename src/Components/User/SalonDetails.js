@@ -7,6 +7,8 @@ import UserNavbar from '../Navbar/UserNavbar';
 import Footer from '../Footer/Footer';
 import { Spinner } from '@chakra-ui/react'
 import Table from 'react-bootstrap/Table';
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SalonDetails = () => {
   const locations = useLocation();  
@@ -25,6 +27,7 @@ const SalonDetails = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedDayOfWeek, setSelectedDayOfWeek] = useState('');
   const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
+  const [isTimeSlotUnavailableMessageVisible, setIsTimeSlotUnavailableMessageVisible] = useState(false);
 
 
 
@@ -141,6 +144,19 @@ const SalonDetails = () => {
     console.log(userId);
 
     const salon_name = salonDetails.salon_name
+
+    const isTimeSlotAvailable = timeSlots.find(
+      (timeSlot) => timeSlot.id === parseInt(selectedTimeSlot) && !timeSlot.is_booked
+    );
+
+    console.log('isTimeSlotAvailable:', isTimeSlotAvailable);
+  
+    if (!isTimeSlotAvailable.id) {
+      console.error('This time slot is already booked');
+      setIsTimeSlotUnavailableMessageVisible(true);
+      console.log('isTimeSlotUnavailableMessageVisible set to true');
+      return;
+    }
  
 
     // Prepare the appointment data
@@ -184,6 +200,13 @@ const SalonDetails = () => {
       .catch(error => {
         // Handle error (show an error message, log the error, etc.)
         console.error('Error creating appointment', error);
+        if (error.response && error.response.status === 400) {
+          // Handle 400 Bad Request (time slot already booked)
+          console.error('This time slot is already booked');
+          toast.error('This time slot is already booked, please book another time slot', {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
       });
     }
 
@@ -240,6 +263,8 @@ const SalonDetails = () => {
           </Col>
         </Row>
       </Container>
+
+      
       
       
 
@@ -247,7 +272,7 @@ const SalonDetails = () => {
             <div style={{ marginTop: '50px' }}>
               <h3 style={{textAlign:'center'}}>Book an Appointment</h3>
               
-              <Form onSubmit={handleAppointmentSubmit} style={{width:'50%',  margin: '0 auto', marginBottom: '100px'}}>
+              <Form onSubmit={(e) => handleAppointmentSubmit(e)} style={{width:'50%',  margin: '0 auto', marginBottom: '100px'}}>
                     <Form.Group controlId="serviceSelect">
                     <Form.Label>Service</Form.Label>
                     <Form.Control as="select" onChange={(e) => setSelectedService(e.target.value)} required>
@@ -289,12 +314,19 @@ const SalonDetails = () => {
                     </Form.Group>
 
                     
+
+                    
                     <div className="text-center">
                       <Button variant="primary" type="submit" style={{ marginTop: '25px' }}>
                         Book Appointment
                       </Button>
                     </div>
                 </Form>
+                {isTimeSlotUnavailableMessageVisible && (
+                      <div style={{ textAlign: 'center', marginTop: '10px', color: 'red' }}>
+                        This time slot is already booked. Please choose another time.
+                      </div>
+                    )}
           </div>
 
             <Footer/>
