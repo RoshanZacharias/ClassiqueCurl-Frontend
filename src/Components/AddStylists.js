@@ -9,8 +9,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {useSelector} from 'react-redux'
-import SalonNavbar from './Navbar/SalonNavbar';
 import Footer from './Footer/Footer';
+import NewSalonNavbar from './Navbar/NewSalonNavbar';
 
 export default function AddStylist() {
     const navigate = useNavigate();
@@ -90,7 +90,7 @@ export default function AddStylist() {
       
   return (
     <div>
-      <SalonNavbar/>
+      <NewSalonNavbar/>
       <div style={{ maxWidth: '500px', margin: 'auto', marginTop: '50px', marginBottom: '300px' }}>
       <form>
         <MDBRow className='mb-4'>

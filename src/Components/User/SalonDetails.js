@@ -3,12 +3,12 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
-import UserNavbar from '../Navbar/UserNavbar';
 import Footer from '../Footer/Footer';
 import { Spinner } from '@chakra-ui/react'
 import Table from 'react-bootstrap/Table';
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NewUserNavbar from '../Navbar/NewUserNavbar';
 
 const SalonDetails = () => {
   const locations = useLocation();  
@@ -212,7 +212,8 @@ const SalonDetails = () => {
 
   return (
     <div>
-      <UserNavbar />
+      
+      <NewUserNavbar/>
       <Container>
         <h2 style={{ marginTop: '20px' }}>Salon Details</h2>
         <Row>
@@ -221,7 +222,7 @@ const SalonDetails = () => {
             <Card style={{ maxHeight: '400px', overflow: 'hidden' }}>
               <Card.Img
                 variant="top"
-                src={`http://127.0.0.1:8000/${salon_image}`}
+                src={`http://127.0.0.1:8000${salon_image}`}
                 alt={salon_name}
                 style={{ maxHeight: '200px', objectFit: 'cover' }}
               />

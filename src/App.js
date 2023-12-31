@@ -25,6 +25,8 @@ import SalonBookingsView from './Components/Salon/SalonBookings.js';
 import UserProfile from './Components/User/UserProfile.js';
 import ChatComponent from './Components/Messages/Message.jsx';
 import SalonChatComponent from './Components/Messages/SalonMessage.jsx';
+import SalonListing from './Components/User/SalonList.js';
+import AdminBookings from './Components/AdminBookings.jsx';
 
 
 
@@ -49,6 +51,7 @@ function App() {
         <Route path='/admin-home' element={<AdminHomePage/>} />
         <Route path='/signup' element={<UserRegister/>}></Route>
         <Route path='/login' element={<UserLogin/>} />
+        <Route path='/salons' element={<SalonListing/>} />
         <Route path='/salon-details/:id' element={<SalonDetails/>} />
         <Route path='/salon-details/:id/booking-overview/:userId/:appointmentId' element={<BookingOverview />} />
         <Route path='/success' element={<SuccessPage/>} />
@@ -68,6 +71,7 @@ function App() {
         <Route path='/admin-home/salon-list' element={<SalonList/>} />
         <Route path='/admin-home/salon-list/salon-request-approval/:salonId' element={<SalonRequestApproval/>} />
         <Route path='/admin-home/user-list' element={<UserList/>} />
+        <Route path='/admin-home/bookings' element={<AdminBookings/>} />
       </Routes>
    </Router>
    </div>

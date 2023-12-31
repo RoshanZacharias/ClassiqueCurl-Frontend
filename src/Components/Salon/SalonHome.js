@@ -13,7 +13,7 @@ import Footer from '../Footer/Footer';
 
 const SalonHome = () => {
   const salonUser = useSelector(state => state.salon)
-  console.log('**********salonUser***********', salonUser)
+ 
   const [services, setServices] = useState([]);
   const [stylists, setStylists] = useState([]);
   const [timeSlots, setTimeSlots] = useState([]);
@@ -128,7 +128,7 @@ const SalonHome = () => {
                 <td>{stylist.id}</td>
                 <td>{stylist.stylist_name}</td>
                 <td>
-                  <ImageModal src={`http://127.0.0.1:8000/${stylist.stylist_image}`} alt='stylist_image' />
+                  <ImageModal src={`http://127.0.0.1:8000${stylist.stylist_image}`} alt='stylist_image' />
                 </td>
                 
               </tr>

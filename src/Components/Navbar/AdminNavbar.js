@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux'
+import {clearAdminAuth} from '../../Redux/AdminSlice'
 import {
   MDBContainer,
   MDBNavbar,
@@ -18,7 +20,16 @@ import {
 } from 'mdb-react-ui-kit';
 
 export default function AdminNavbar() {
+  const adminUser = useSelector(state => state.admin);
+  console.log('ADMIN-USER:', adminUser)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [openBasic, setOpenBasic] = useState(false);
+
+  const logout = () =>{
+    dispatch(clearAdminAuth());
+    navigate('/admin-login');
+}
 
   return (
     <MDBNavbar expand='lg' light bgColor='light'>
@@ -52,7 +63,7 @@ export default function AdminNavbar() {
             </MDBNavbarItem>
 
             <MDBNavbarItem>
-              <MDBNavbarLink href='#'>Bookings</MDBNavbarLink>
+              <MDBNavbarLink href='/admin-home/bookings'>Bookings</MDBNavbarLink>
             </MDBNavbarItem>
 
             <MDBNavbarItem>
@@ -60,21 +71,10 @@ export default function AdminNavbar() {
             </MDBNavbarItem>
 
             <MDBNavbarItem>
-              <MDBNavbarLink href='#'>Logout</MDBNavbarLink>
+              <MDBNavbarLink  onClick={logout}>Logout</MDBNavbarLink>
             </MDBNavbarItem>
 
-            {/* <MDBNavbarItem>
-              <MDBDropdown>
-                <MDBDropdownToggle tag='a' className='nav-link' role='button'>
-                  Dropdown  
-                </MDBDropdownToggle>
-                <MDBDropdownMenu>
-                  <MDBDropdownItem link>Action</MDBDropdownItem>
-                  <MDBDropdownItem link>Another action</MDBDropdownItem>
-                  <MDBDropdownItem link>Something else here</MDBDropdownItem>
-                </MDBDropdownMenu>
-              </MDBDropdown>
-            </MDBNavbarItem> */}
+            
 
             
           </MDBNavbarNav>

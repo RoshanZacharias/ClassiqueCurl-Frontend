@@ -1,11 +1,11 @@
 import React from 'react'
-import SalonNavbar from '../Components/Navbar/SalonNavbar'
 import SalonHome from '../Components/Salon/SalonHome'
+import NewSalonNavbar from '../Components/Navbar/NewSalonNavbar'
 
 const SalonHomePage = () => {
   return (
     <div>
-      <SalonNavbar/>
+      <NewSalonNavbar/>
       <SalonHome/>
       
     </div>

@@ -15,13 +15,14 @@
     color: #222;
     font-size: 2rem;
     cursor: pointer;
+    padding-left: 35px;
 }
 
 
 .nav-menu{
     display: grid;
     grid-template-columns: repeat(6,auto);
-    grid-gap: 10px;
+    grid-gap: 20px;
     list-style: none;
     align-items: center;
 }
@@ -36,6 +37,7 @@
     white-space: nowrap;
 }
 
+
 .nav-links i{
     padding-right: 10px;
 }
@@ -48,10 +50,10 @@
     transition: all 0.2s ease-in-out;
 }
 
-
-.nav-links-mobile{
-    display: none;
+.nav-links i{
+    padding-right: 10px;
 }
+
 
 
 button{

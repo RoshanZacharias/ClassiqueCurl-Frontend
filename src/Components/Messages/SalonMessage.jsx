@@ -3,6 +3,8 @@ import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import './ChatComponent.css'; 
 import {useSelector} from 'react-redux'
 import axios from 'axios';
+import NewSalonNavbar from '../Navbar/NewSalonNavbar';
+import Footer from '../Footer/Footer';
 
 const SalonChatComponent = () => {
     const [message, setMessage] = useState('');
@@ -91,6 +93,7 @@ const SalonChatComponent = () => {
 
   return (
     <div>
+      <NewSalonNavbar/>
       <main className="content" style={{ marginTop: "25px" , marginBottom: "0"}}>
       <div className="container p-0"></div>
       <div className="card">
@@ -120,7 +123,7 @@ const SalonChatComponent = () => {
           {bookings.map((booking) => (
             <li key={booking.id} onClick={() => handleAppointmentClick(booking)}>
                 <div className="doctor-list-item d-flex align-items-start">
-                  <img src={`http://127.0.0.1:8000/${booking.user.userimage}`} alt="User" className="rounded-circle mr-1"  />
+                  <img src={`http://127.0.0.1:8000${booking.user.profile_picture}`} alt="User" className="rounded-circle mr-1"  />
                   <div className="flex-grow-1 ml-3">
                     <div className="small">
                       <small style={{ fontSize: '16px', fontWeight: 'bold' }}>{booking.user.first_name}</small>
@@ -136,7 +139,7 @@ const SalonChatComponent = () => {
             <div>
               <div className="selected-doctor-info d-flex align-items-center">
                 <img
-                  src={`http://127.0.0.1:8000/${selectedAppointment.user.userimage}`}
+                  src={`http://127.0.0.1:8000${selectedAppointment.user.profile_picture}`}
                   alt={selectedAppointment.user.first_name}
                   className="rounded-circle mr-1"
                   width={40}
@@ -175,6 +178,7 @@ const SalonChatComponent = () => {
       </div>
       </div>
     </main>
+    <Footer/>
     </div>
   )
 }

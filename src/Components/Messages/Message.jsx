@@ -4,6 +4,8 @@ import './ChatComponent.css'
 import {useSelector} from 'react-redux'
 import {useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import NewUserNavbar from '../Navbar/NewUserNavbar';
+import Footer from '../Footer/Footer';
 
 const ChatComponent = () => {
     const user = useSelector(state=> state.user)
@@ -128,7 +130,8 @@ const ChatComponent = () => {
 
   return (
     <div>
-      <main className="content" style={{ marginTop: "15px" , marginBottom: "0"}}>
+      <NewUserNavbar/>
+      <main className="content" style={{ marginTop: "15px" , marginBottom: "500px"}}>
       <div className="container p-0"></div>
       <div className="card">
                 <div className="row g-0">
@@ -141,7 +144,7 @@ const ChatComponent = () => {
           {bookings.map((booking) => (
             <li key={booking.id} onClick={() => handleAppointmentClick(booking)}>
                 <div className="doctor-list-item d-flex align-items-start">
-                  <img src= {`http://127.0.0.1:8000/${booking.salon.salon_image}`} alt="Salon" className="rounded-circle mr-1"  />
+                  <img src= {`http://127.0.0.1:8000${booking.salon.salon_image}`} alt="Salon" className="rounded-circle mr-1"  />
                   
                   <div className="flex-grow-1 ml-3">
                     <div className="small">
@@ -158,7 +161,7 @@ const ChatComponent = () => {
             <div>
               <div className="selected-doctor-info d-flex align-items-center">
                 <img
-                  src={`http://127.0.0.1:8000/${selectedAppointment.salon.salon_image}`}
+                  src={`http://127.0.0.1:8000${selectedAppointment.salon.salon_image}`}
                   alt={selectedAppointment.salon.salon_name}
                   className="rounded-circle mr-1"
                   width={40}
@@ -205,6 +208,7 @@ const ChatComponent = () => {
       </div>
       </div>
     </main>
+    <Footer/>
     </div>
   )
 }

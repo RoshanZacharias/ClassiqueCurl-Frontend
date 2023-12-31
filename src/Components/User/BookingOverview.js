@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Spinner, Card, Container, Row, Col, Button } from 'react-bootstrap';
-import UserNavbar from '../Navbar/UserNavbar';
-import AlertDialogExample from '../AlertBox';
+import { Spinner, Card, Container, Row, Col } from 'react-bootstrap';
+
 import Footer from '../Footer/Footer';
-import SuccessPage from '../SuccessMessage';
+
+import NewUserNavbar from '../Navbar/NewUserNavbar';
 
 
 const BookingOverview = () => {
@@ -299,7 +299,7 @@ const BookingOverview = () => {
 
   return (
     <div>
-      <UserNavbar />
+      <NewUserNavbar/>
     <Container className="mt-5">
     
     <h1 className="mb-4 text-center">Booking Overview</h1>

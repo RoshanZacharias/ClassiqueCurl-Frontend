@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Button } from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom'
+import AdminNavbar from '../Navbar/AdminNavbar';
 
 const SalonList = () => {
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ const SalonList = () => {
 
     return (
         <div>
+            <AdminNavbar/>
             <h1>Salon Requests</h1>
             <Table striped bordered hover>
                 <thead>
@@ -50,7 +52,7 @@ const SalonList = () => {
                     <td>{salon.mobile}</td>
                     <td>
                         {/* Display the image directly inside the cell */}
-                        <img src={`http://127.0.0.1:8000/${salon.salon_image}`} alt="Salon Image" style={{ width: '50px', height: '50px' }} />
+                        <img src={`http://127.0.0.1:8000${salon.salon_image}`} alt="Salon Image" style={{ width: '50px', height: '50px' }} />
                     </td>
                     <td>
                         <Button variant="primary" onClick={() => handleViewClick(salon.id)}>

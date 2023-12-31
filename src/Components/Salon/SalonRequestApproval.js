@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // You might need to install axios: npm install axios
 import {Table, Button} from 'react-bootstrap'; // Make sure to install react-bootstrap
 import ImageModal from '../ImageModal';
+import AdminNavbar from '../Navbar/AdminNavbar';
 
 const SalonRequestApproval = () => {
   const { salonId  } = useParams();
@@ -74,6 +75,7 @@ const SalonRequestApproval = () => {
 
   return (
     <div>
+      <AdminNavbar/>
       <h2>{salon.salon_name} Details</h2>
       <Table striped bordered hover>
         <tbody>
@@ -99,7 +101,7 @@ const SalonRequestApproval = () => {
           <tr>
             <td>Image</td>
             <td>
-              <ImageModal src={`http://127.0.0.1:8000/${salon.salon_image}`} alt="License" />
+              <ImageModal src={`http://127.0.0.1:8000${salon.salon_image}`} alt="License" />
             </td>
           </tr>
 
@@ -113,7 +115,7 @@ const SalonRequestApproval = () => {
           <tr>
             <td>License</td>
             <td>
-              <ImageModal src={`http://127.0.0.1:8000/${salon.licence}`} alt="License" />
+              <ImageModal src={`http://127.0.0.1:8000${salon.licence}`} alt="License" />
             </td>
           </tr>
         </tbody>

@@ -2,9 +2,8 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {useSelector} from 'react-redux'
 import { Container, Table, Button } from 'react-bootstrap';
-import UserNavbar from '../Navbar/UserNavbar';
 import Footer from '../Footer/Footer';
-import SalonNavbar from '../Navbar/SalonNavbar';
+import NewSalonNavbar from '../Navbar/NewSalonNavbar';
 
 
 const SalonBookingsView = () => {
@@ -66,7 +65,7 @@ const SalonBookingsView = () => {
 
   return (
     <div>
-        <SalonNavbar/>
+        <NewSalonNavbar/>
         <h2 style={{marginTop: '50px', padding: '10px', marginBottom: '20px'}} >Your Bookings</h2>
         <Container fluid style={{marginBottom: '600px'}}>
         {bookedAppointments.length > 0 ? (

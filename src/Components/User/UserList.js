@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Button } from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom';
+import AdminNavbar from '../Navbar/AdminNavbar';
 
 
 
@@ -59,6 +60,7 @@ const UserList = () => {
 
     return (
         <div>
+          <AdminNavbar/>
             <h1>User List</h1>
             <Table striped bordered hover>
                 <thead>

@@ -7,9 +7,8 @@ import { toast } from 'react-toastify';
 import {useNavigate} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import TimePicker from 'react-time-picker';
-import UserNavbar from './Navbar/UserNavbar';
-import SalonNavbar from './Navbar/SalonNavbar';
 import Footer from './Footer/Footer';
+import NewSalonNavbar from './Navbar/NewSalonNavbar';
 
 
 
@@ -75,7 +74,7 @@ export default function AddTimeSlot() {
 
   return (
       <div>
-        <SalonNavbar/>  
+        <NewSalonNavbar/> 
       
     <div className="d-flex align-items-center justify-content-center" style={{ minHeight: "80vh", color: "black", marginBottom:'200px' }}>
   <form onSubmit={handleSubmit} style={{ maxWidth: "300px" }}>

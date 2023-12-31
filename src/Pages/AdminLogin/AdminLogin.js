@@ -2,9 +2,15 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
 import { MDBContainer, MDBInput,MDBBtn } from 'mdb-react-ui-kit';
+import {setAdminAccessToken, setAdminUser} from '../../Redux/AdminSlice'
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 
 function AdminLogin() {
     const navigator = useNavigate();
+    const dispatch = useDispatch();
+
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -41,6 +47,9 @@ function AdminLogin() {
                 localStorage.setItem('accessToken', response.data.access);
                 localStorage.setItem('refreshToken', response.data.refresh);
                 console.log(response.data);
+                dispatch(setAdminAccessToken(response.data.access));
+                dispatch(setAdminUser(response.data.user));
+                toast.success('Admin Login Successful');
                 navigator('/admin-home');
             })
             .catch((error)=>{

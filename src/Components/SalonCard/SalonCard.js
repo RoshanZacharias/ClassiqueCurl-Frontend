@@ -37,7 +37,7 @@ const SalonCard = () => {
           >
             <div className='s-image'>
               <img
-                src={`http://127.0.0.1:8000/${salon.salon_image}`}
+                src={`http://127.0.0.1:8000${salon.salon_image}`}
                 alt={salon.salon_name}
               />
             </div>

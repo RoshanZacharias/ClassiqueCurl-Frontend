@@ -5,8 +5,8 @@ import axios from 'axios';
 import {useSelector} from 'react-redux'
 import { Container, Table } from 'react-bootstrap';
 import AlertDialogExample from './AlertBox';
-import UserNavbar from './Navbar/UserNavbar';
 import Footer from './Footer/Footer';
+import NewUserNavbar from './Navbar/NewUserNavbar';
 
 const BookingsPage = () => {
     const user = useSelector(state => state.user);
@@ -65,7 +65,8 @@ const BookingsPage = () => {
 
   return (
     <div>
-      <UserNavbar/>
+      
+      <NewUserNavbar/>
         <h2 style={{marginTop: '50px', paddingLeft: '100px'}} >Your Bookings</h2>
         <Container fluid style={{padding: '20px 100px', paddingBottom: '200px'}}>
         {bookings.length > 0 ? (
