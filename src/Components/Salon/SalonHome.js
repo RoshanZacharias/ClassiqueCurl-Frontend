@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import Hero from '../Hero/Hero';
 import { MDBBtn } from 'mdb-react-ui-kit';
 import './SalonHome.css';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {useSelector} from 'react-redux' 
 import {Table} from 'react-bootstrap'
 import axios from 'axios';
@@ -12,18 +12,31 @@ import Footer from '../Footer/Footer';
 
 
 const SalonHome = () => {
+  const navigate = useNavigate();
   const salonUser = useSelector(state => state.salon)
  
   const [services, setServices] = useState([]);
   const [stylists, setStylists] = useState([]);
   const [timeSlots, setTimeSlots] = useState([]);
 
+  let salonId;
+ 
 
+    try {
+        salonId = salonUser.salonUser.id;
+        console.log(salonId);
+      
+    } catch (error) {
+      salonId=0
+      navigate('/salon-login')
+
+      console.log('login page')
+    }
 
 
 
   useEffect(() => {
-    const salonId = salonUser.salonUser.id;
+    // const salonId = salonUser.salonUser.id;
   
     axios.get(`http://localhost:8000/salon-side/salon-services/?salon_id=${salonId}`)
       .then(response => {
@@ -31,37 +44,42 @@ const SalonHome = () => {
       })
       .catch(error => {
         console.error('Error fetching salon services:', error);
+        navigate('/salon-login')
+        
+
       });
-  }, [salonUser.salonUser.id]);
+  }, [salonId]);
 
 
 
 
   useEffect(() => {
-    const salonId = salonUser.salonUser.id;
+    // const salonId = salonUser.salonUser.id;
   
     axios.get(`http://localhost:8000/salon-side/salon-stylists/?salon_id=${salonId}`)
       .then(response => {
         setStylists(response.data);
       })
       .catch(error => {
+        navigate('/salon-login')
         console.error('Error fetching salon stylists:', error);
       });
-  }, [salonUser.salonUser.id]);
+  }, [salonId]);
 
 
 
   useEffect(() => {
-    const salonId = salonUser.salonUser.id;
+    // const salonId = salonUser.salonUser.id;
   
     axios.get(`http://localhost:8000/salon-side/salon-time-slot/?salon_id=${salonId}`)
       .then(response => {
         setTimeSlots(response.data);
       })
       .catch(error => {
+        navigate('/salon-login')
         console.error('Error fetching time slots:', error);
       });
-  }, [salonUser.salonUser.id]);
+  }, [salonId]);
    
   
 
@@ -70,6 +88,7 @@ const SalonHome = () => {
 
   return (
     <>
+    
       <Hero
         cName='hero'
         heroImg="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

@@ -210,6 +210,17 @@ const SalonDetails = () => {
       });
     }
 
+
+    const handleButtonClick = () => {
+      // Redirect to the login page
+      navigate('/login');
+    };
+
+
+
+
+
+
   return (
     <div>
       
@@ -318,9 +329,15 @@ const SalonDetails = () => {
 
                     
                     <div className="text-center">
-                      <Button variant="primary" type="submit" style={{ marginTop: '25px' }}>
+                      {user.isAuthenticated? (
+                        <Button variant="primary" type="submit" style={{ marginTop: '25px' }}>
                         Book Appointment
                       </Button>
+
+                      ):(<Button variant="warning"  onClick={handleButtonClick}  style={{ marginTop: '25px' }}>
+                      Book Appointment
+                    </Button>)}
+                      
                     </div>
                 </Form>
                 {isTimeSlotUnavailableMessageVisible && (

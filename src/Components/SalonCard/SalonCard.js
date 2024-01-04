@@ -18,7 +18,7 @@ const SalonCard = () => {
       console.log('Error fetching salon data', error);
     });
   }, []);
-  console.log('Salons state:', salons);
+  
   
   return (
         <div className='salon'>

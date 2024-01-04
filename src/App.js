@@ -1,4 +1,5 @@
 import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
 import UserRegister from './Pages/UserRegister/UserRegister.js';
 import UserLogin from './Pages/UserLogin/UserLogin.js';
@@ -12,7 +13,6 @@ import UserList from './Components/User/UserList.js';
 import SalonRequestApproval from './Components/Salon/SalonRequestApproval.js';
 import SalonHomePage from './Pages/SalonHomePage.js';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import AddService from './Components/AddService.js';
 import AddStylist from './Components/AddStylists.js';
 import AddTimeSlot from './Components/AddTimeSlot.js';
@@ -27,6 +27,8 @@ import ChatComponent from './Components/Messages/Message.jsx';
 import SalonChatComponent from './Components/Messages/SalonMessage.jsx';
 import SalonListing from './Components/User/SalonList.js';
 import AdminBookings from './Components/AdminBookings.jsx';
+import SalonPage from './Components/Salon/SalonPage.js';
+import SearchResultPage from './Components/SearchResultPage.jsx';
 
 
 
@@ -58,6 +60,7 @@ function App() {
         <Route path= '/bookings' element={<BookingsPage/>} />
         <Route path='/profile' element={<UserProfile/>} />
         <Route path='/messages' element={<ChatComponent/>} />
+        <Route path='/search' element={<SearchResultPage/>} />
         <Route path='/salon-register' element={<SalonRegister/>}/>
         <Route path='/salon-login' element={<SalonLogin/>}/>
         <Route path='/salon-home' element={<SalonHomePage/>}/>
@@ -72,6 +75,7 @@ function App() {
         <Route path='/admin-home/salon-list/salon-request-approval/:salonId' element={<SalonRequestApproval/>} />
         <Route path='/admin-home/user-list' element={<UserList/>} />
         <Route path='/admin-home/bookings' element={<AdminBookings/>} />
+        <Route path='admin-home/salons' element={<SalonPage/>} />
       </Routes>
    </Router>
    </div>

@@ -7,14 +7,32 @@ import { Container, Table } from 'react-bootstrap';
 import AlertDialogExample from './AlertBox';
 import Footer from './Footer/Footer';
 import NewUserNavbar from './Navbar/NewUserNavbar';
+import { useNavigate } from 'react-router-dom';
 
 const BookingsPage = () => {
     const user = useSelector(state => state.user);
-    const userId = user.user.id
-    console.log(userId)
-    const [bookings, setBookings] = useState([]);
+    const navigate = useNavigate();
 
+
+    
+   
+    const [bookings, setBookings] = useState([]);
+    
+    let userId;
+
+    try {
+        userId = user.user.id;
+        console.log(userId);
+      
+    } catch (error) {
+      userId = 0;
+      console.error('Error accessing user ID', error);
+    }
+    
+    
+    
     useEffect(() => {
+      
       const fetchBookings = async () => {
         try {
           const response = await axios.get(`http://127.0.0.1:8000/bookings/${userId}/`);

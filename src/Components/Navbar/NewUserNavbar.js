@@ -11,8 +11,8 @@ const NewUserNavbar = () => {
     
     const user = useSelector(state => state.user);
     console.log(user)
-    const userId = user.user.id;
-    console.log('userID:', userId)
+    // const userId = user.user.id;
+    // console.log('userID:', userId)
     const salonUser = useSelector(state=> state.salon)
     console.log('salonUser:', salonUser)
     const salonId = salonUser.salonUser.id;
@@ -107,24 +107,26 @@ const NewUserNavbar = () => {
                 <Link className='nav-links' to={'/profile'}><i class="fa-solid fa-user"></i>Profile</Link>
             </li>
 
-            
-            <li>
+            {user.isAuthenticated ? (
+                <li>
                 <Link className='nav-links' to={'/messages'}><i class="fa-solid fa-message"></i>Messages</Link>
             </li>
-            <li>
+            ):(null)}
+            
+
+            {user.isAuthenticated ? (
+                <li>
                 <Link className='nav-links' to={'/bookings'}><i class="fa-solid fa-bookmark"></i>Bookings</Link>
             </li>
+            ):(null)}
+            
 
-            <li>
-                <Link className='nav-links' onClick={openNotificationModal}>
-                    <i className="fa-solid fa-bell"></i>Notification
-                </Link>
-            </li>
+            
 
             {user.isAuthenticated ? (
             // User is logged in, show Logout link
             <li>
-                <Link className='nav-links' onClick={logout} to={'/login'}> {/* Replace '/logout' with your actual logout route */}
+                <Link className='nav-links' onClick={logout} to={'/login'}> 
                 <i className="fa-solid fa-right-to-bracket"></i>Logout
                 </Link>
             </li>

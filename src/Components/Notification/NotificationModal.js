@@ -3,17 +3,33 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import {useSelector} from 'react-redux'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 const NotificationModal = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
   console.log('***NOTIFICATIONS***', notifications)
   const [notificationCount, setNotificationCount] = useState(0);
+  console.log('***is open***', isOpen)
 
 
   const salonUser = useSelector(state=> state.salon)
     console.log('salonUser:', salonUser)
-    const salonId = salonUser.salonUser.id;
-    console.log('salonId:', salonId)
+    // const salonId = salonUser.salonUser.id;
+    // console.log('salonId:', salonId)
+    let salonId;
+ 
+
+    try {
+        salonId = salonUser.salonUser.id;
+        console.log(salonId);
+      
+    } catch (error) {
+      salonId=0
+      navigate('/salon-login')
+
+      console.log('login page')
+    }
 
     const salonNotifications = notifications.filter(
       (notification) => notification.salon_id === salonId
@@ -45,12 +61,17 @@ const NotificationModal = ({ isOpen, onClose }) => {
             setNotificationCount(response.data.notification_count);
             console.log('RESPOSNE DATA:', response.data)
           } catch (error) {
+            navigate('/salon-login');
             console.error('Error fetching notifications:', error);
           }
         };
+
+        if (isOpen && salonId) {
+          fetchNotifications();
+        }
     
-        fetchNotifications();
-      }, [salonId]);
+        // fetchNotifications();
+      }, [isOpen, salonId]);
 
 
 

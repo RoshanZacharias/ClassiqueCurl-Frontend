@@ -5,11 +5,13 @@ import axios from 'axios';
 import { Spinner, Card, Container, Row, Col } from 'react-bootstrap';
 
 import Footer from '../Footer/Footer';
-
+import {useSelector} from 'react-redux'
 import NewUserNavbar from '../Navbar/NewUserNavbar';
+import UserLogin from '../../Pages/UserLogin/UserLogin';
 
 
 const BookingOverview = () => {
+  const user = useSelector(state => state.user);
   const navigate = useNavigate();
   const { appointmentId } = useParams();
   console.log('appointmentId:', appointmentId)
@@ -298,51 +300,55 @@ const BookingOverview = () => {
   
 
   return (
+    
     <div>
       <NewUserNavbar/>
-    <Container className="mt-5">
+      {user.isAuthenticated ? (
+          <Container className="mt-5">
     
-    <h1 className="mb-4 text-center">Booking Overview</h1>
+          <h1 className="mb-4 text-center">Booking Overview</h1>
+          
+          <Row className="justify-content-md-center">
+            <Col md={6}>
+              <Card>
+                <Card.Body>
+                  <Card.Title>User Details</Card.Title>
+                  <Card.Text>User: {appointmentData.user_name}</Card.Text>
+                  <Card.Text>Email: {appointmentData.user_email}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+      
+          <Row className="mt-4 justify-content-md-center">
+            <Col md={6}>
+              <Card>
+                <Card.Body>
+                  <Card.Title>Appointment Details</Card.Title>
+                  <Card.Text>Salon: {appointmentData.salon_name}</Card.Text>
+                  <Card.Text>Service: {appointmentData.service.service_name}</Card.Text>
+                  <Card.Text>Stylist: {appointmentData.stylist.stylist_name}</Card.Text>
+                  <Card.Text>Date: {appointmentData.date}</Card.Text>
+                  <Card.Text>
+                    Time Slot: {appointmentData.time_slot.day}: {appointmentData.time_slot.start_time} - {appointmentData.time_slot.end_time}
+                  </Card.Text>
+                  <Card.Text>Rate: {appointmentData.price}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+      
+          <Row className="mt-4 justify-content-md-center" style={{marginBottom: '50px'}}>
+          <button onClick={showRazorpay} className="btn btn-primary btn-block">
+              Pay with razorpay
+            </button>
+          </Row>  
+      
+          
+      
+        </Container>
+      ): (<UserLogin/>)}
     
-    <Row className="justify-content-md-center">
-      <Col md={6}>
-        <Card>
-          <Card.Body>
-            <Card.Title>User Details</Card.Title>
-            <Card.Text>User: {appointmentData.user_name}</Card.Text>
-            <Card.Text>Email: {appointmentData.user_email}</Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
-    </Row>
-
-    <Row className="mt-4 justify-content-md-center">
-      <Col md={6}>
-        <Card>
-          <Card.Body>
-            <Card.Title>Appointment Details</Card.Title>
-            <Card.Text>Salon: {appointmentData.salon_name}</Card.Text>
-            <Card.Text>Service: {appointmentData.service.service_name}</Card.Text>
-            <Card.Text>Stylist: {appointmentData.stylist.stylist_name}</Card.Text>
-            <Card.Text>Date: {appointmentData.date}</Card.Text>
-            <Card.Text>
-              Time Slot: {appointmentData.time_slot.day}: {appointmentData.time_slot.start_time} - {appointmentData.time_slot.end_time}
-            </Card.Text>
-            <Card.Text>Rate: {appointmentData.price}</Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
-    </Row>
-
-    <Row className="mt-4 justify-content-md-center" style={{marginBottom: '50px'}}>
-    <button onClick={showRazorpay} className="btn btn-primary btn-block">
-        Pay with razorpay
-      </button>
-    </Row>  
-
-    
-
-  </Container>
   <Footer/>
     </div>
     

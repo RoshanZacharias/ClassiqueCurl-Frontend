@@ -4,10 +4,16 @@ import { Table, Button } from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom';
 import AdminNavbar from '../Navbar/AdminNavbar';
 
+import {
+  MDBBtn,
+} from 'mdb-react-ui-kit';
+
 
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
 
     const handleViewClick = (userId) => {
         console.log(`View button clicked for Salon ID ${userId}`);
@@ -23,6 +29,25 @@ const UserList = () => {
             });
     }, []);
 
+
+
+    const handleSearch = async (e) => {
+      try {
+        e.preventDefault();
+        const response = await axios.get(`http://127.0.0.1:8000/admin-side/users/search/?search=${searchTerm}`);
+        const data = response.data;  
+        console.log('DATA:', data);
+        setUsers(data);
+        
+      } catch (error) {
+        console.error('Error searching:', error);
+      }
+    };
+
+
+
+
+    
 
     const handleBlockUnblock = async (userId, isBlocked) => {
         try {
@@ -50,7 +75,7 @@ const UserList = () => {
       
       
           const data = await response.json();
-          console.log(data);
+          
         } catch (error) {
           console.error('Error:', error.message);
         }
@@ -61,8 +86,24 @@ const UserList = () => {
     return (
         <div>
           <AdminNavbar/>
-            <h1>User List</h1>
-            <Table striped bordered hover>
+            <h1 style={{ maxWidth: '90%', margin: 'auto', marginTop:'20px', marginBottom:'10px' }}>User List</h1>
+
+            <form className='d-flex input-group w-auto' style={{ width: '50%',  paddingBottom:'20px', marginLeft:'1000px' }}>
+          <input
+            type='search'
+            className='form-control'
+            placeholder='Search'
+            aria-label='Search'
+            onChange={(e)=>setSearchTerm(e.target.value)}
+            style={{borderRadius: '10px'}}
+          />
+          <MDBBtn color='primary' onClick={handleSearch} style={{borderRadius: '10px', marginLeft:'10px'}} >
+            Search
+          </MDBBtn>
+        </form>
+
+
+            <Table striped bordered hover style={{ maxWidth: '90%', margin: 'auto', marginTop:'20px', marginBottom:'10px' }}>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -71,7 +112,7 @@ const UserList = () => {
                         <th>Email</th>
                         <th>Mobile</th>
                         <th>Action</th>
-                        {/* Add other fields as needed */}
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -92,7 +133,7 @@ const UserList = () => {
 
 
                             </td>
-                            {/* Add other fields as needed */}
+                            
                         </tr>
                     ))}
                 </tbody>

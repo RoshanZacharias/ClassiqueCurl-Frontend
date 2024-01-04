@@ -8,12 +8,13 @@ import NewUserNavbar from '../Navbar/NewUserNavbar';
 import Footer from '../Footer/Footer';
 
 const ChatComponent = () => {
+  const navigate = useNavigate();
     const user = useSelector(state=> state.user)
     console.log('user:',user)
     const salonUser = useSelector(state => state.salon)
     console.log('salonUser:', salonUser)
-    const userId = user.user.id
-    console.log('userId:', userId)
+    // const userId = user.user.id
+    // console.log('userId:', userId)
     
 
     const [bookings, setBookings] = useState([]);
@@ -22,6 +23,22 @@ const ChatComponent = () => {
     const [chatMessages, setChatMessages] = useState([]);
     const [selectedAppointment, setSelectedAppointment] = useState(null);
     const [message, setMessage] = useState('');
+
+
+    let userId;
+  // userId = user.user.id;
+
+    try {
+        userId = user.user.id;
+        console.log(userId);
+      
+    } catch (error) {
+      userId=0
+      navigate('/login')
+
+      console.log('login page')
+    }
+
 
 
     useEffect(() => {
@@ -33,6 +50,7 @@ const ChatComponent = () => {
                 setBookings(reversedBookings);
                 console.log('***BOOKINGS***', reversedBookings);
             } catch (error) {
+                navigate('/login')
                 console.error('Error fetching bookings', error);
             }
         };

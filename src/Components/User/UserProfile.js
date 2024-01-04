@@ -1,18 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import NewUserNavbar from '../Navbar/NewUserNavbar';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 
 const UserProfile = () => {
+  const navigate = useNavigate();
   const [walletBalance, setWalletBalance] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
   const user = useSelector(state => state.user);
-  const userId = user.user.id
+  // const userId = user.user.id
   
-    
+  let userId;
+  // userId = user.user.id;
+
+    try {
+        userId = user.user.id;
+        console.log(userId);
+      
+    } catch (error) {
+      userId=0
+      navigate('/login')
+
+      console.log('login page')
+    }
+
+
 
   useEffect(() => {
     // Fetch wallet information from the backend
@@ -23,6 +39,7 @@ const UserProfile = () => {
         setWalletBalance(data.wallet_balance);
       } catch (error) {
         console.error('Error fetching wallet balance:', error);
+        navigate('/login')
       }
     };
 

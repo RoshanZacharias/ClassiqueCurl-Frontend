@@ -1,20 +1,36 @@
 import React, {useState, useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux'
-import { clearAuth } from '../../Redux/UserSlice';
+import { clearSalonAuth } from '../../Redux/SalonSlice';
 import './NewSalonNavbar.css'
 import NotificationModal from '../Notification/NotificationModal';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 const NewSalonNavbar = () => {
+  const navigate = useNavigate();
     const salonUser = useSelector(state=> state.salon)
     
-    const salonId = salonUser.salonUser.id;
+    // const salonId = salonUser.salonUser.id;
+
+    let salonId;
+ 
+
+    try {
+        salonId = salonUser.salonUser.id;
+        console.log(salonId);
+      
+    } catch (error) {
+      salonId=0
+      navigate('/salon-login')
+
+      console.log('login page')
+    }
     
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+   
     const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
     const [notification, setNotification] = useState([]);
     // console.log('NOTIFICATIONS:', notification)
@@ -22,7 +38,7 @@ const NewSalonNavbar = () => {
     // console.log('NOTIFI COUNT:', notificationCount)
 
     const logout = () =>{
-        dispatch(clearAuth());
+        dispatch(clearSalonAuth());
         navigate('/salon-login');
     }
 
@@ -63,6 +79,7 @@ const NewSalonNavbar = () => {
                 ...prevNotifications,
                 data.payload,
               ]);
+              toast.info(`New Notification: ${data.payload.message}`);
             } else if (data.type === "logout") {
               dispatch(logout());
               navigate("/");
@@ -106,10 +123,12 @@ const NewSalonNavbar = () => {
                 <Link className='nav-links' to={'/salon-home/salon-profile'}><i class="fa-solid fa-user"></i>Profile</Link>
             </li>
 
+            {salonUser.isSalonAuthenticated ? (
+              <li>
+              <Link className='nav-links' to={'/salon-home/salon-messages'}><i class="fa-solid fa-message"></i>Messages</Link>
+              </li>
+            ):(null)}
             
-            <li>
-                <Link className='nav-links' to={'/salon-home/salon-messages'}><i class="fa-solid fa-message"></i>Messages</Link>
-            </li>
             <li>
                 <Link className='nav-links' to={'/salon-home/salon-bookings'}><i class="fa-solid fa-bookmark"></i>Bookings</Link>
             </li>
@@ -121,7 +140,7 @@ const NewSalonNavbar = () => {
             </li>
 
 
-            {salonUser.isAuthenticated ? (
+            {salonUser.isSalonAuthenticated ? (
             // User is logged in, show Logout link
             <li>
                 <Link className='nav-links' onClick={logout} to={'/salon-login'}> 

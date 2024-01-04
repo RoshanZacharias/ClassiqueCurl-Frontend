@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux'
 import {clearAdminAuth} from '../../Redux/AdminSlice'
+import axios from 'axios';
 import {
   MDBContainer,
   MDBNavbar,
@@ -12,24 +13,25 @@ import {
   MDBNavbarItem,
   MDBNavbarLink,
   MDBBtn,
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
   MDBCollapse,
 } from 'mdb-react-ui-kit';
 
 export default function AdminNavbar() {
   const adminUser = useSelector(state => state.admin);
-  console.log('ADMIN-USER:', adminUser)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openBasic, setOpenBasic] = useState(false);
+  
+
+
 
   const logout = () =>{
     dispatch(clearAdminAuth());
     navigate('/admin-login');
 }
+
+
+
 
   return (
     <MDBNavbar expand='lg' light bgColor='light'>
@@ -52,8 +54,10 @@ export default function AdminNavbar() {
                 <MDBNavbarLink>Users</MDBNavbarLink>
               </Link>
             </MDBNavbarItem>
+
+
             <MDBNavbarItem>
-              <MDBNavbarLink href='#'>Salons</MDBNavbarLink>
+              <MDBNavbarLink href='/admin-home/salons'>Salons</MDBNavbarLink>
             </MDBNavbarItem>
 
             <MDBNavbarItem>
@@ -66,9 +70,7 @@ export default function AdminNavbar() {
               <MDBNavbarLink href='/admin-home/bookings'>Bookings</MDBNavbarLink>
             </MDBNavbarItem>
 
-            <MDBNavbarItem>
-              <MDBNavbarLink href='#'>Notifications</MDBNavbarLink>
-            </MDBNavbarItem>
+            
 
             <MDBNavbarItem>
               <MDBNavbarLink  onClick={logout}>Logout</MDBNavbarLink>
@@ -79,10 +81,9 @@ export default function AdminNavbar() {
             
           </MDBNavbarNav>
 
-          <form className='d-flex input-group w-auto'>
-            <input type='search' className='form-control' placeholder='Search' aria-label='Search' />
-            <MDBBtn color='primary'>Search</MDBBtn>
-          </form>
+          
+
+          
         </MDBCollapse>
       </MDBContainer>
     </MDBNavbar>

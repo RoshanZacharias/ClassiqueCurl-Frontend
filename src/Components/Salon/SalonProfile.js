@@ -5,10 +5,13 @@ import Footer from '../Footer/Footer'
 
 const SalonProfile = () => {
     const salonUser = useSelector(state => state.salon)
-    console.log('salonuser:', salonUser)
+    // console.log('salonuser:', salonUser)
     const salonId = salonUser.salonUser.id
-    console.log('salonId:', salonId)
+    // console.log('salonId:', salonId)
     const [SalonDetails, setSalonDetails] = useState(null);
+    console.log('SalonDetails:', SalonDetails)
+    const [profilePicture, setProfilePicture] = useState(null);
+    console.log('profilePicture:', profilePicture)
 
 
 
@@ -30,6 +33,42 @@ const SalonProfile = () => {
       fetchSalonDetails();
   
     }, [salonId]);
+
+
+    const handleFileChange = (e) => {
+      const file = e.target.files[0];
+      setProfilePicture(file);
+    };
+  
+    const handleFileUpload = async () => {
+      try {
+        const formData = new FormData();
+        formData.append('profile_picture', profilePicture);
+  
+        const response = await fetch(`http://127.0.0.1:8000/salon-side/salon/${salonId}/upload-profile-picture/`, {
+          method: 'POST',
+          headers: {
+            // You might need to include additional headers based on your backend requirements
+          },
+          body: formData,
+        });
+  
+        if (response.ok) {
+          const updatedSalonDetails = await response.json();
+          setSalonDetails(updatedSalonDetails);
+          // Handle success, e.g., display a success message
+          console.log('Profile picture uploaded successfully');
+        } else {
+          // Handle error
+          console.error('Failed to upload profile picture');
+        }
+      } catch (error) {
+        console.error('Error uploading profile picture:', error);
+      }
+    };
+
+
+
   return (
     <div>
       <NewSalonNavbar/>
@@ -54,9 +93,9 @@ const SalonProfile = () => {
                     justifyContent: 'center',
                   }}
                 >
-                  {SalonDetails && SalonDetails.salon_image ? (
+                  {SalonDetails && SalonDetails.profile_picture ? (
                     <img
-                    src={`http://127.0.0.1:8000${SalonDetails.salon_image}`}
+                    src={`http://127.0.0.1:8000${SalonDetails.profile_picture}`}
                       alt="Salon Profile"
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
@@ -64,6 +103,19 @@ const SalonProfile = () => {
                     <i className="bi bi-person fs-1 text-secondary"></i>
                   )}
                 </div>
+
+                <input
+                  type="file"
+                  className="form-control mt-2"
+                  id="profilePicture"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
+                <button className="btn btn-primary mt-2" onClick={handleFileUpload}>
+                  Upload Profile Picture
+                </button>
+
+
                 
               </div>
             </div>
