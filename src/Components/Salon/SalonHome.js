@@ -9,6 +9,7 @@ import axios from 'axios';
 import ImageModal from '../ImageModal';
 import TimeSlotTable from './TimeSlot';
 import Footer from '../Footer/Footer';
+import { baseURL } from '../../api/api';
 
 
 const SalonHome = () => {
@@ -38,7 +39,7 @@ const SalonHome = () => {
   useEffect(() => {
     // const salonId = salonUser.salonUser.id;
   
-    axios.get(`http://localhost:8000/salon-side/salon-services/?salon_id=${salonId}`)
+    axios.get(`${baseURL}/salon-side/salon-services/?salon_id=${salonId}`)
       .then(response => {
         setServices(response.data);
       })
@@ -56,7 +57,7 @@ const SalonHome = () => {
   useEffect(() => {
     // const salonId = salonUser.salonUser.id;
   
-    axios.get(`http://localhost:8000/salon-side/salon-stylists/?salon_id=${salonId}`)
+    axios.get(`${baseURL}/salon-side/salon-stylists/?salon_id=${salonId}`)
       .then(response => {
         setStylists(response.data);
       })
@@ -71,7 +72,7 @@ const SalonHome = () => {
   useEffect(() => {
     // const salonId = salonUser.salonUser.id;
   
-    axios.get(`http://localhost:8000/salon-side/salon-time-slot/?salon_id=${salonId}`)
+    axios.get(`${baseURL}/salon-side/salon-time-slot/?salon_id=${salonId}`)
       .then(response => {
         setTimeSlots(response.data);
       })
@@ -147,7 +148,7 @@ const SalonHome = () => {
                 <td>{stylist.id}</td>
                 <td>{stylist.stylist_name}</td>
                 <td>
-                  <ImageModal src={`http://127.0.0.1:8000${stylist.stylist_image}`} alt='stylist_image' />
+                  <ImageModal src={`${baseURL}${stylist.stylist_image}`} alt='stylist_image' />
                 </td>
                 
               </tr>

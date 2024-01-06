@@ -1,5 +1,6 @@
 import React from 'react';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import { baseURL } from '../../api/api';
 
 const SalonTable = ({ salons }) => {
   return (
@@ -25,10 +26,10 @@ const SalonTable = ({ salons }) => {
             <td>{salon.location}</td>
             <td>{salon.licence_number}</td>
             <td>
-              <img src={`http://127.0.0.1:8000${salon.licence}`} alt="Licence" style={{ maxWidth: '100px', maxHeight: '100px' }} />
+              <img src={`${baseURL}${salon.licence}`} alt="Licence" style={{ maxWidth: '100px', maxHeight: '100px' }} />
             </td>
             <td>
-              <img src={`http://127.0.0.1:8000${salon.salon_image}`} alt="Salon Image" style={{ maxWidth: '100px', maxHeight: '100px' }} />
+              <img src={`${baseURL}${salon.salon_image}`} alt="Salon Image" style={{ maxWidth: '100px', maxHeight: '100px' }} />
             </td>
             <td style={{ color: salon.is_verified ? 'green' : 'red' }}>
                 {salon.is_verified ? 'Accepted' : 'Rejected'}

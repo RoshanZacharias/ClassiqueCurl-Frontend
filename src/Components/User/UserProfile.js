@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import NewUserNavbar from '../Navbar/NewUserNavbar';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { baseURL } from '../../api/api';
 
 
 const UserProfile = () => {
@@ -34,7 +35,7 @@ const UserProfile = () => {
     // Fetch wallet information from the backend
     const fetchWalletBalance = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/wallet/${userId}/`);
+        const response = await fetch(`${baseURL}/wallet/${userId}/`);
         const data = await response.json();
         setWalletBalance(data.wallet_balance);
       } catch (error) {
@@ -45,7 +46,7 @@ const UserProfile = () => {
 
     const fetchUserDetails = async () =>{
       try{
-        const userResponse = await fetch(`http://127.0.0.1:8000/user/${userId}/`);
+        const userResponse = await fetch(`${baseURL}/user/${userId}/`);
         const userData = await userResponse.json();
         setUserDetails(userData);
       }catch(error){
@@ -70,7 +71,7 @@ const UserProfile = () => {
       const formData = new FormData();
       formData.append('profile_picture', profilePicture);
 
-      const response = await fetch(`http://127.0.0.1:8000/user/${userId}/upload-profile-picture/`, {
+      const response = await fetch(`${baseURL}/user/${userId}/upload-profile-picture/`, {
         method: 'POST',
         headers: {
           // You might need to include additional headers based on your backend requirements
@@ -119,7 +120,7 @@ const UserProfile = () => {
                 >
                   {userDetails && userDetails.profile_picture ? (
                     <img
-                    src={`http://127.0.0.1:8000${userDetails.profile_picture}`}
+                    src={`${baseURL}${userDetails.profile_picture}`}
                       alt="Profile"
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
@@ -160,7 +161,7 @@ const UserProfile = () => {
                 </div>
                 <hr style={{ border: 'none', borderTop: '1px solid #ddd', margin: '10px 0' }} />
                 <div style={{ marginBottom: '10px' }}>
-                  <strong>Wallet Balance:</strong> ${walletBalance}
+                  <strong>Wallet Balance:</strong> ₹ {walletBalance}
                 </div>
               </>
             ) : (

@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import {useSelector} from 'react-redux'
 import Footer from './Footer/Footer';
 import NewSalonNavbar from './Navbar/NewSalonNavbar';
+import { baseURL } from '../api/api';
 
 export default function AddStylist() {
     const navigate = useNavigate();
@@ -60,7 +61,7 @@ export default function AddStylist() {
             formData.append('stylist_image', stylistImage);
           try {
             const response = await axios.post(
-              'http://localhost:8000/salon-side/add-stylists/',
+              `${baseURL}/salon-side/add-stylists/`,
               
               formData,
                 {

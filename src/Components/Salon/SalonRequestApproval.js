@@ -4,6 +4,7 @@ import axios from 'axios'; // You might need to install axios: npm install axios
 import {Table, Button} from 'react-bootstrap'; // Make sure to install react-bootstrap
 import ImageModal from '../ImageModal';
 import AdminNavbar from '../Navbar/AdminNavbar';
+import { baseURL } from '../../api/api';
 
 const SalonRequestApproval = () => {
   const { salonId  } = useParams();
@@ -17,7 +18,7 @@ const SalonRequestApproval = () => {
   const handleAccept = async () => {
     try {
       // Send a PATCH request to your backend to update is_verified to true
-      await axios.patch(`http://127.0.0.1:8000/admin-side/salon-list/${salonId}/`, {
+      await axios.patch(`${baseURL}/admin-side/salon-list/${salonId}/`, {
         
       });
       
@@ -36,7 +37,7 @@ const SalonRequestApproval = () => {
   const handleReject = async () => {
     try {
       // You might want to implement a different endpoint or update logic for rejection
-      await axios.patch(`http://127.0.0.1:8000/admin-side/salon-list/${salonId}/`, {
+      await axios.patch(`${baseURL}/admin-side/salon-list/${salonId}/`, {
         is_verified: false,
       });
 
@@ -54,11 +55,11 @@ const SalonRequestApproval = () => {
 
   useEffect(() => {
     console.log('ID:', salonId);
-    console.log(`http://127.0.0.1:8000/admin-side/salon-request-approval/${salonId}`);
+    console.log(`${baseURL}/admin-side/salon-request-approval/${salonId}`);
     // Fetch salon details based on the id
     const fetchSalonDetails = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/admin-side/salon-request-approval/${salonId}/`); // Adjust the API endpoint
+        const response = await axios.get(`${baseURL}/admin-side/salon-request-approval/${salonId}/`); // Adjust the API endpoint
         setSalon(response.data);
         setIsVerified(response.data.is_verified);
       } catch (error) {
@@ -101,7 +102,7 @@ const SalonRequestApproval = () => {
           <tr>
             <td>Image</td>
             <td>
-              <ImageModal src={`http://127.0.0.1:8000${salon.salon_image}`} alt="License" />
+              <ImageModal src={`${baseURL}${salon.salon_image}`} alt="License" />
             </td>
           </tr>
 
@@ -115,7 +116,7 @@ const SalonRequestApproval = () => {
           <tr>
             <td>License</td>
             <td>
-              <ImageModal src={`http://127.0.0.1:8000${salon.licence}`} alt="License" />
+              <ImageModal src={`${baseURL}${salon.licence}`} alt="License" />
             </td>
           </tr>
         </tbody>

@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import {useSelector} from 'react-redux'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from '../../api/api';
 
 const NotificationModal = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const NotificationModal = ({ isOpen, onClose }) => {
       useEffect(() => {
         const fetchNotifications = async () => {
           try {
-            const response = await axios.get(`http://127.0.0.1:8000/salon-side/salon-notification/${salonId}/`);
+            const response = await axios.get(`${baseURL}/salon-side/salon-notification/${salonId}/`);
             setNotifications(response.data.notifications);
             setNotificationCount(response.data.notification_count);
             console.log('RESPOSNE DATA:', response.data)
@@ -79,7 +80,7 @@ const NotificationModal = ({ isOpen, onClose }) => {
 
       const handleNotificationClick = async (notification) => {
         try {
-          await axios.put(`http://127.0.0.1:8000/salon-side/update-notification/${notification.id}/`, {
+          await axios.put(`${baseURL}/salon-side/update-notification/${notification.id}/`, {
             is_seen: true,
           });
       

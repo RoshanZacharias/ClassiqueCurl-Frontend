@@ -8,6 +8,7 @@ import Footer from '../Footer/Footer';
 import {useSelector} from 'react-redux'
 import NewUserNavbar from '../Navbar/NewUserNavbar';
 import UserLogin from '../../Pages/UserLogin/UserLogin';
+import { baseURL } from '../../api/api';
 
 
 const BookingOverview = () => {
@@ -25,7 +26,7 @@ const BookingOverview = () => {
   
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/booking-overview/${appointmentId}/`)
+    axios.get(`${baseURL}/booking-overview/${appointmentId}/`)
       .then(response => {
         console.log('Fetched booking details:', response.data);
         setAppointmentData(response.data);
@@ -48,7 +49,7 @@ const BookingOverview = () => {
   }
 
   const handleBookingConfirmation = () =>{
-    axios.patch('http://127.0.0.1:8000/appointments/update-booking-status/', {
+    axios.patch(`${baseURL}/appointments/update-booking-status/`, {
       appointmentId: appointmentId,
       is_Booked: true,
     })
@@ -207,9 +208,9 @@ const BookingOverview = () => {
       bodyData.append("time_slot_start_time", appointmentData.time_slot.start_time);
       bodyData.append("time_slot_end_time", appointmentData.time_slot.end_time);
 
-      console.log("url",`http://127.0.0.1:8000/pay/${appointmentId}`)
+      
       const response = await axios.post(
-        `http://127.0.0.1:8000/pay/${appointmentId}/`,
+        `${baseURL}/pay/${appointmentId}/`,
         
         bodyData,
         {
@@ -270,7 +271,7 @@ const BookingOverview = () => {
         bodyData.append("payment", JSON.stringify(response.data.payment));
       }
   
-      await axios.post('http://127.0.0.1:8000/payment/success/', bodyData, {
+      await axios.post(`${baseURL}/payment/success/`, bodyData, {
         headers: {
           "Content-Type": "application/json",
         },

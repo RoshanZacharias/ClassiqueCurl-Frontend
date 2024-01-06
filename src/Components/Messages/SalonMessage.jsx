@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux'
 import axios from 'axios';
 import NewSalonNavbar from '../Navbar/NewSalonNavbar';
 import Footer from '../Footer/Footer';
+import { baseURL } from '../../api/api';
 
 const SalonChatComponent = () => {
     const [message, setMessage] = useState('');
@@ -22,7 +23,7 @@ const SalonChatComponent = () => {
     useEffect(() => {
         const fetchBookings = async () => {
           try {
-            const response = await axios.get(`http://127.0.0.1:8000/salon-side/booked-appointments/${salonId}/`);
+            const response = await axios.get(`${baseURL}/salon-side/booked-appointments/${salonId}/`);
             setBookings(response.data);
             console.log(response.data)
           } catch (error) {
@@ -50,7 +51,7 @@ const SalonChatComponent = () => {
         };
         const fetchExistingMessages = async () => {
           try {
-              const response = await fetch(`http://127.0.0.1:8000/chat/${appointmentId}/`);
+              const response = await fetch(`${baseURL}/chat/${appointmentId}/`);
               const data = await response.json();
               console.log("dataaaaaaaaa",data)
               const messagesTextArray = data.map(item => ({
@@ -123,7 +124,7 @@ const SalonChatComponent = () => {
           {bookings.map((booking) => (
             <li key={booking.id} onClick={() => handleAppointmentClick(booking)}>
                 <div className="doctor-list-item d-flex align-items-start">
-                  <img src={`http://127.0.0.1:8000${booking.user.profile_picture}`} alt="User" className="rounded-circle mr-1"  />
+                  <img src={`${baseURL}${booking.user.profile_picture}`} alt="User" className="rounded-circle mr-1"  />
                   <div className="flex-grow-1 ml-3">
                     <div className="small">
                       <small style={{ fontSize: '16px', fontWeight: 'bold' }}>{booking.user.first_name}</small>
@@ -139,7 +140,7 @@ const SalonChatComponent = () => {
             <div>
               <div className="selected-doctor-info d-flex align-items-center">
                 <img
-                  src={`http://127.0.0.1:8000${selectedAppointment.user.profile_picture}`}
+                  src={`${baseURL}${selectedAppointment.user.profile_picture}`}
                   alt={selectedAppointment.user.first_name}
                   className="rounded-circle mr-1"
                   width={40}

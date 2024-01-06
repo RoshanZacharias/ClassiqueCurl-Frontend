@@ -5,6 +5,7 @@ import {
 } from 'mdb-react-ui-kit';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from '../../api/api';
 
 
 const Hero = (props) => {
@@ -15,7 +16,7 @@ const Hero = (props) => {
   const handleSearch = async (e) => {
     try {
       e.preventDefault();
-      const response = await axios.get(`http://127.0.0.1:8000/salons/search/?search=${searchTerm}`);
+      const response = await axios.get(`${baseURL}/salons/search/?search=${searchTerm}`);
       const data = response.data;  
       console.log('DATA:', data);
       setUsers(data);

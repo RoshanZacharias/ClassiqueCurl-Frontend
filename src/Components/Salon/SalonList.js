@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Table, Button } from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom'
 import AdminNavbar from '../Navbar/AdminNavbar';
+import { baseURL } from '../../api/api';
 
 const SalonList = () => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const SalonList = () => {
       };
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/admin-side/salon-list/')
+        axios.get(`${baseURL}/admin-side/salon-list/`)
             .then(response => {
                 console.log(response.data)
                 setSalons(response.data);
@@ -52,7 +53,7 @@ const SalonList = () => {
                     <td>{salon.mobile}</td>
                     <td>
                         {/* Display the image directly inside the cell */}
-                        <img src={`http://127.0.0.1:8000${salon.salon_image}`} alt="Salon Image" style={{ width: '50px', height: '50px' }} />
+                        <img src={`${baseURL}${salon.salon_image}`} alt="Salon Image" style={{ width: '50px', height: '50px' }} />
                     </td>
                     <td>
                         <Button variant="primary" onClick={() => handleViewClick(salon.id)}>

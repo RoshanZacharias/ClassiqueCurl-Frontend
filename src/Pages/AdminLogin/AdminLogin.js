@@ -5,6 +5,7 @@ import { MDBContainer, MDBInput,MDBBtn } from 'mdb-react-ui-kit';
 import {setAdminAccessToken, setAdminUser} from '../../Redux/AdminSlice'
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
+import { baseURL } from '../../api/api';
 
 function AdminLogin() {
     const navigator = useNavigate();
@@ -39,7 +40,7 @@ function AdminLogin() {
                 setPasswordError('Password is required');
             }
         }else{
-            axios.post('http://localhost:8000/admin-side/admin-login/', {
+            axios.post(`${baseURL}/admin-side/admin-login/`, {
                 email: email,
                 password: password
             })

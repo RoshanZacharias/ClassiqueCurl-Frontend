@@ -21,6 +21,7 @@ import {
   
 }
 from 'mdb-react-ui-kit';
+import { baseURL } from '../../api/api';
 
 function UserLogin() {
   const navigator = useNavigate();
@@ -57,7 +58,7 @@ function UserLogin() {
       }
     } else {
       axios
-        .post('http://localhost:8000/login/', {
+        .post(`${baseURL}/login/`, {
           email: email,
           password: password,
         }, { withCredentials: true })
@@ -126,7 +127,7 @@ function UserLogin() {
                       console.log(decoded);
 
                       axios
-        .post('http://localhost:8000/user-google-auth/', {
+        .post(`${baseURL}/user-google-auth/`, {
           email: decoded.email,
           name: decoded.given_name,
         }, { withCredentials: true })

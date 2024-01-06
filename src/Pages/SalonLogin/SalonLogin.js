@@ -17,6 +17,7 @@ import {
   
 }
 from 'mdb-react-ui-kit';
+import { baseURL } from '../../api/api';
 
 function SalonLogin() {
   const navigator = useNavigate();
@@ -51,7 +52,7 @@ function SalonLogin() {
         setPasswordError("Password is required");
       }
     }else{
-      axios.post('http://localhost:8000/salon-side/salon-login/', {
+      axios.post(`${baseURL}/salon-side/salon-login/`, {
         email: email,
         password: password,
       },{ withCredentials: true })

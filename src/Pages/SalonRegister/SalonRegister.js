@@ -10,6 +10,7 @@ import {
   MDBRow,
   MDBInput,
 } from 'mdb-react-ui-kit';
+import { baseURL } from '../../api/api';
 
 function SalonRegister() {
   const navigator = useNavigate();
@@ -148,7 +149,7 @@ function SalonRegister() {
 
       try {
         const response = await axios.post(
-          'http://127.0.0.1:8000/salon-side/salon-register/',
+          `${baseURL}/salon-side/salon-register/`,
           formData,
           {
             headers: {

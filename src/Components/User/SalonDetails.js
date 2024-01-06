@@ -9,6 +9,7 @@ import Table from 'react-bootstrap/Table';
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NewUserNavbar from '../Navbar/NewUserNavbar';
+import { baseURL } from '../../api/api';
 
 const SalonDetails = () => {
   const locations = useLocation();  
@@ -55,9 +56,9 @@ const SalonDetails = () => {
 
   useEffect(() => {
     // Get salon ID from URL parameters if available, otherwise use the salonUser ID
-    const salonId = locations.pathname.split('/').pop() || salonUser.salonUser.id;
+    const salonId = locations.pathname.split('/').pop() ;
 
-    axios.get(`http://127.0.0.1:8000/salon-detail/${salonId}/`)
+    axios.get(`${baseURL}/salon-detail/${salonId}/`)
       .then(response => {
         console.log('Fetched salon details:', response.data);
         setSalonDetails(response.data);
@@ -65,7 +66,7 @@ const SalonDetails = () => {
       .catch(error => {
         console.log('Error fetching salon details', error);
       });
-  }, [locations.pathname, salonUser.salonUser.id]);
+  }, [locations.pathname]);
 
 
   useEffect(() => {
@@ -76,9 +77,9 @@ const SalonDetails = () => {
 
 
   useEffect(() => {
-    const salonId = locations.pathname.split('/').pop() || salonUser.salonUser.id;
+    const salonId = locations.pathname.split('/').pop();
     // Fetch services
-    axios.get(`http://127.0.0.1:8000/services/${salonId}/`)
+    axios.get(`${baseURL}/services/${salonId}/`)
       .then(response => {
         setServices(response.data);
         console.log(response.data)
@@ -88,7 +89,7 @@ const SalonDetails = () => {
       });
 
     // Fetch stylists
-    axios.get(`http://127.0.0.1:8000/stylists/${salonId}/`)
+    axios.get(`${baseURL}/stylists/${salonId}/`)
       .then(response => {
         setStylists(response.data);
         console.log(response.data)
@@ -98,7 +99,7 @@ const SalonDetails = () => {
       });
 
     // Fetch time slots
-    axios.get(`http://127.0.0.1:8000/time-slots/${salonId}/`)
+    axios.get(`${baseURL}/time-slots/${salonId}/`)
       .then(response => {
         setTimeSlots(response.data);
         console.log(response.data)
@@ -106,7 +107,7 @@ const SalonDetails = () => {
       .catch(error => {
         console.error('Error fetching time slots', error);
       });
-  }, [salonUser.salonUser.id, locations.pathname]);
+  }, [ locations.pathname]);
 
   if (!salonDetails) {
     return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
@@ -124,7 +125,7 @@ const SalonDetails = () => {
 
 
   const handleAppointmentSubmit = (event) => {
-    const salonId = locations.pathname.split('/').pop() || salonUser.salonUser.id;
+    const salonId = locations.pathname.split('/').pop();
     event.preventDefault();
 
     // Validate form fields
@@ -189,7 +190,7 @@ const SalonDetails = () => {
     console.log(appointmentData)
 
     // Send a POST request to create the appointment
-    axios.post(`http://127.0.0.1:8000/appointments/${userId}/`, appointmentData)
+    axios.post(`${baseURL}/appointments/${userId}/`, appointmentData)
       .then(response => {
         // Handle successful appointment creation (show a success message, redirect, etc.)
         console.log('moving to booking overview', response.data);
@@ -233,7 +234,7 @@ const SalonDetails = () => {
             <Card style={{ maxHeight: '400px', overflow: 'hidden' }}>
               <Card.Img
                 variant="top"
-                src={`http://127.0.0.1:8000${salon_image}`}
+                src={`${baseURL}${salon_image}`}
                 alt={salon_name}
                 style={{ maxHeight: '200px', objectFit: 'cover' }}
               />

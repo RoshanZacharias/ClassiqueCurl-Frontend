@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { clearAuth } from '../Redux/UserSlice';
 import { useDispatch } from 'react-redux';
+import { baseURL } from '../api/api';
 
 const useLogout = () => {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/logout/", {
+      const response = await axios.get(`${baseURL}/logout/`, {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',

@@ -12,6 +12,7 @@ import {
   MDBCol
 }
 from 'mdb-react-ui-kit';
+import { baseURL } from '../../api/api';
 
 function UserRegister() {
     const navigator = useNavigate();
@@ -122,7 +123,7 @@ function UserRegister() {
           setConfirmPasswordError('Passwords do not match');
       }
       else {
-          axios.post(`http://localhost:8000/register/`, {
+          axios.post(`${baseURL}/register/`, {
               first_name: firstname,
               last_name: lastname,
               email: email,

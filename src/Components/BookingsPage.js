@@ -8,6 +8,7 @@ import AlertDialogExample from './AlertBox';
 import Footer from './Footer/Footer';
 import NewUserNavbar from './Navbar/NewUserNavbar';
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from '../api/api';
 
 const BookingsPage = () => {
     const user = useSelector(state => state.user);
@@ -35,7 +36,7 @@ const BookingsPage = () => {
       
       const fetchBookings = async () => {
         try {
-          const response = await axios.get(`http://127.0.0.1:8000/bookings/${userId}/`);
+          const response = await axios.get(`${baseURL}/bookings/${userId}/`);
           const reversedBookings = response.data.reverse(); // Reverse the array
           setBookings(reversedBookings);
           console.log('***BOOKINGS***', reversedBookings);
@@ -51,7 +52,7 @@ const BookingsPage = () => {
 
   const handleCancelBooking = async (orderId) => {
     try {
-      const response = await axios.patch(`http://127.0.0.1:8000/orders/cancel/${orderId}/`);
+      const response = await axios.patch(`${baseURL}/orders/cancel/${orderId}/`);
       setBookings((prevBookings) =>
         prevBookings.map((booking) =>
           booking.id === orderId ? { ...booking, isPaid: false, status: 'Cancelled' } : booking

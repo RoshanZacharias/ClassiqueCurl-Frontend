@@ -7,6 +7,7 @@ import AdminNavbar from '../Navbar/AdminNavbar';
 import {
   MDBBtn,
 } from 'mdb-react-ui-kit';
+import { baseURL } from '../../api/api';
 
 
 
@@ -20,7 +21,7 @@ const UserList = () => {
       };
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/admin-side/user-list/')
+        axios.get(`${baseURL}/admin-side/user-list/`)
             .then(response => {
                 setUsers(response.data);
             })
@@ -34,7 +35,7 @@ const UserList = () => {
     const handleSearch = async (e) => {
       try {
         e.preventDefault();
-        const response = await axios.get(`http://127.0.0.1:8000/admin-side/users/search/?search=${searchTerm}`);
+        const response = await axios.get(`${baseURL}/admin-side/users/search/?search=${searchTerm}`);
         const data = response.data;  
         console.log('DATA:', data);
         setUsers(data);
@@ -51,7 +52,7 @@ const UserList = () => {
 
     const handleBlockUnblock = async (userId, isBlocked) => {
         try {
-          const url = `http://127.0.0.1:8000/admin-side/users/${userId}/${isBlocked ? 'unblock' : 'block'}/`;
+          const url = `${baseURL}/admin-side/users/${userId}/${isBlocked ? 'unblock' : 'block'}/`;
           const response = await fetch(url, {
             method: 'POST',
             headers: {

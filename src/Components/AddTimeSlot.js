@@ -9,6 +9,7 @@ import {useSelector} from 'react-redux'
 import TimePicker from 'react-time-picker';
 import Footer from './Footer/Footer';
 import NewSalonNavbar from './Navbar/NewSalonNavbar';
+import { baseURL } from '../api/api';
 
 
 
@@ -44,7 +45,7 @@ export default function AddTimeSlot() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8000/salon-side/add-timeslot/',
+      const response = await axios.post(`${baseURL}/salon-side/add-timeslot/`,
       {
         day: timeSlot.day,
         start_time: timeSlot.start_time,

@@ -2,13 +2,14 @@ import React, {useState, useEffect} from 'react'
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import AdminNavbar from './Navbar/AdminNavbar';
+import { baseURL } from '../api/api';
 
 const AdminBookings = () => {
     const [bookings, setBookings] = useState([]);
     useEffect(() => {
         const fetchBookings = async () => {
           try {
-            const response = await axios.get('http://127.0.0.1:8000/admin-side/latest-paid-orders/');
+            const response = await axios.get(`${baseURL}/admin-side/latest-paid-orders/`);
             setBookings(response.data.filter(order => order.isPaid));
           } catch (error) {
             console.error('Error fetching bookings:', error);

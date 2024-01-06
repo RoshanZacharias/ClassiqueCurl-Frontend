@@ -6,6 +6,7 @@ import {useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NewUserNavbar from '../Navbar/NewUserNavbar';
 import Footer from '../Footer/Footer';
+import { baseURL } from '../../api/api';
 
 const ChatComponent = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const ChatComponent = () => {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/bookings/${userId}/`);
+                const response = await axios.get(`${baseURL}/bookings/${userId}/`);
                 console.log("Fetched Upcoming Appointments:", response.data);
                 const reversedBookings = response.data.reverse(); // Reverse the array
                 setBookings(reversedBookings);
@@ -95,7 +96,7 @@ const ChatComponent = () => {
         // Fetch existing messages when the WebSocket connection is established
         const fetchExistingMessages = async () => {
             try{
-                const response = await fetch(`http://127.0.0.1:8000/chat/${appointmentId}/`);
+                const response = await fetch(`${baseURL}/chat/${appointmentId}/`);
                 const data = await response.json();
                 console.log('data:', data)
                 const messagesTextArray = data.map(item => ({
@@ -162,7 +163,7 @@ const ChatComponent = () => {
           {bookings.map((booking) => (
             <li key={booking.id} onClick={() => handleAppointmentClick(booking)}>
                 <div className="doctor-list-item d-flex align-items-start">
-                  <img src= {`http://127.0.0.1:8000${booking.salon.salon_image}`} alt="Salon" className="rounded-circle mr-1"  />
+                  <img src= {`${baseURL}${booking.salon.salon_image}`} alt="Salon" className="rounded-circle mr-1"  />
                   
                   <div className="flex-grow-1 ml-3">
                     <div className="small">
@@ -179,7 +180,7 @@ const ChatComponent = () => {
             <div>
               <div className="selected-doctor-info d-flex align-items-center">
                 <img
-                  src={`http://127.0.0.1:8000${selectedAppointment.salon.salon_image}`}
+                  src={`${baseURL}${selectedAppointment.salon.salon_image}`}
                   alt={selectedAppointment.salon.salon_name}
                   className="rounded-circle mr-1"
                   width={40}

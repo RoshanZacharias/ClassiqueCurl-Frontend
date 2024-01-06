@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux'
 import { Container, Table, Button } from 'react-bootstrap';
 import Footer from '../Footer/Footer';
 import NewSalonNavbar from '../Navbar/NewSalonNavbar';
+import { baseURL } from '../../api/api';
 
 
 const SalonBookingsView = () => {
@@ -21,7 +22,7 @@ const SalonBookingsView = () => {
     useEffect(() => {
         const fetchBookings = async () => {
           try {
-            const response = await axios.get(`http://127.0.0.1:8000/salon-side/booked-appointments/${salonId}/`);
+            const response = await axios.get(`${baseURL}/salon-side/booked-appointments/${salonId}/`);
             setBookedAppointments(response.data);
             console.log(response.data)
           } catch (error) {
@@ -37,7 +38,7 @@ const SalonBookingsView = () => {
         try {
           // Make a PATCH request to update the status
           const response = await axios.patch(
-            `http://127.0.0.1:8000/salon-side/order/update-status/${orderId}/`,
+            `${baseURL}/salon-side/order/update-status/${orderId}/`,
             { status: newStatus }
           );
     

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {useSelector} from 'react-redux'
 import NewSalonNavbar from '../Navbar/NewSalonNavbar'
 import Footer from '../Footer/Footer'
+import { baseURL } from '../../api/api'
 
 const SalonProfile = () => {
     const salonUser = useSelector(state => state.salon)
@@ -21,7 +22,7 @@ const SalonProfile = () => {
   
       const fetchSalonDetails = async () =>{
         try{
-          const salonResponse = await fetch(`http://127.0.0.1:8000/salon-side/salon/${salonId}/`);
+          const salonResponse = await fetch(`${baseURL}/salon-side/salon/${salonId}/`);
           const salonData = await salonResponse.json();
           console.log('SALONDATA:', salonData)
           setSalonDetails(salonData);
@@ -45,7 +46,7 @@ const SalonProfile = () => {
         const formData = new FormData();
         formData.append('profile_picture', profilePicture);
   
-        const response = await fetch(`http://127.0.0.1:8000/salon-side/salon/${salonId}/upload-profile-picture/`, {
+        const response = await fetch(`${baseURL}/salon-side/salon/${salonId}/upload-profile-picture/`, {
           method: 'POST',
           headers: {
             // You might need to include additional headers based on your backend requirements
@@ -95,7 +96,7 @@ const SalonProfile = () => {
                 >
                   {SalonDetails && SalonDetails.profile_picture ? (
                     <img
-                    src={`http://127.0.0.1:8000${SalonDetails.profile_picture}`}
+                    src={`${baseURL}${SalonDetails.profile_picture}`}
                       alt="Salon Profile"
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />

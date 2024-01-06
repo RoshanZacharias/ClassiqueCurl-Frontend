@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import UserNavbar from './Navbar/UserNavbar';
 import NewUserNavbar from './Navbar/NewUserNavbar';
 import Footer from './Footer/Footer';
+import { baseURL } from '../api/api';
 
 const SearchResultPage = () => {
     const navigate = useNavigate();
@@ -80,7 +81,7 @@ const SearchResultPage = () => {
             onMouseLeave={handleCardLeave}
             onClick={() => handleCardClick(result.id)}
           >
-            <img src={`http://127.0.0.1:8000${result.salon_image}`} alt={result.salon_name} style={imageStyle} />
+            <img src={`${baseURL}${result.salon_image}`} alt={result.salon_name} style={imageStyle} />
             <div style={cardBodyStyle}>
               <h2 style={cardTitleStyle}>{result.salon_name}</h2>
               <p style={cardTextStyle}>Email: {result.email}</p>

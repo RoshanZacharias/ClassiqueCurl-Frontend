@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import {useSelector} from 'react-redux'
 import Footer from './Footer/Footer';
 import NewSalonNavbar from './Navbar/NewSalonNavbar';
+import { baseURL } from '../api/api';
 
 export default function AddService() {
     const navigate = useNavigate();
@@ -57,7 +58,7 @@ export default function AddService() {
         } else {
           try {
             const response = await axios.post(
-              'http://localhost:8000/salon-side/add-service/',
+              `${baseURL}/salon-side/add-service/`,
               {
                 service_name: serviceName,
                 description: description,

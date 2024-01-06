@@ -3,12 +3,13 @@ import './SalonCard.css'
 import SalonData from './SalonData'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { baseURL } from '../../api/api';
 
 const SalonCard = () => {
   const [salons, setSalons] = useState([]);
 
   useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/admin-side/salon-list/')
+    axios.get(`${baseURL}/admin-side/salon-list/`)
     .then(response =>{
       console.log('Fetched salon data:', response.data);
       const verifiedSalons = response.data.filter(salon => salon.is_verified);
@@ -37,7 +38,7 @@ const SalonCard = () => {
           >
             <div className='s-image'>
               <img
-                src={`http://127.0.0.1:8000${salon.salon_image}`}
+                src={`${baseURL}${salon.salon_image}`}
                 alt={salon.salon_name}
               />
             </div>
