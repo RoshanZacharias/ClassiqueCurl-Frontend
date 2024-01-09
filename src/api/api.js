@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:8000';
+// const baseURL = 'http://localhost:8000';
+const baseURL = 'https://www.classiquecurl.shop';
 const imageBaseUrl = 'http://localhost:8000'
 
 const axiosInstance = axios.create({
