@@ -45,6 +45,7 @@ function AdminLogin() {
                 password: password
             })
             .then((response)=>{
+                console.log('RESPONSE DATA:', response.data)
                 localStorage.setItem('accessToken', response.data.access);
                 localStorage.setItem('refreshToken', response.data.refresh);
                 console.log(response.data);
