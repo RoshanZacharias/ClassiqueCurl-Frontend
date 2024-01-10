@@ -63,6 +63,7 @@ function UserLogin() {
           password: password,
         }, { withCredentials: true })
         .then((response) => {
+          console.log('RESPOSNE DATA:',response.data)
           localStorage.setItem('accessToken', response.data.access);
           localStorage.setItem('refreshToken', response.data.refresh);
           console.log("response.data", response.data);
