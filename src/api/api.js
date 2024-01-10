@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const baseURL = 'http://localhost:8000';
-const baseURL = 'http://www.classiquecurl.shop';
+const baseURL = 'https://www.classiquecurl.shop';
 const imageBaseUrl = 'http://localhost:8000'
 
 
