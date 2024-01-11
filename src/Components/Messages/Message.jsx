@@ -24,7 +24,7 @@ const ChatComponent = () => {
     const [chatMessages, setChatMessages] = useState([]);
     const [selectedAppointment, setSelectedAppointment] = useState(null);
     const [message, setMessage] = useState('');
-
+    console.log('CLIENT:', client)
 
     let userId;
   // userId = user.user.id;
