@@ -60,7 +60,8 @@ const NewSalonNavbar = () => {
           const websocketProtocol =
             window.location.protocol === "https:" ? "wss://" : "ws://";
           // const wsURL = ${websocketProtocol}${window.location.host}/ws/notification/?token=${accessToken};
-          const wsURL = `ws://localhost:8000/ws/salon-notification/${salonId}/`
+          // const wsURL = `ws://localhost:8000/ws/salon-notification/${salonId}/`
+          const wsURL = `wss://classiquecurl.shop/ws/salon-notification/${salonId}/`
           const socket = new WebSocket(wsURL);
           console.log(wsURL);
       
