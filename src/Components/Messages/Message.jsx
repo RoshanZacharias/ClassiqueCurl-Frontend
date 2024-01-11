@@ -80,6 +80,7 @@ const ChatComponent = () => {
 
         const newClient = new W3CWebSocket(`wss://classiquecurl.shop/ws/chat/${appointmentId}/`);
         setClient(newClient);
+        console.log('***SET CLIENT***', setClient)
 
 
         newClient.onopen = () =>{
