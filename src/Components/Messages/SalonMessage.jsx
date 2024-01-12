@@ -14,6 +14,7 @@ const SalonChatComponent = () => {
     console.log("BOOKINGS:", bookings);
     const [selectedAppointment, setSelectedAppointment] = useState(null);
     const [client, setClient] = useState(null);
+    console.log('CLIENT:', client);
     const salonUser = useSelector(state => state.salon)
     console.log('salonUser:', salonUser)
     const salonId = salonUser.salonUser.id
@@ -40,6 +41,7 @@ const SalonChatComponent = () => {
     
         const newClient = new W3CWebSocket(`wss://classiquecurl.shop/ws/chat/${appointmentId}/`);
         setClient(newClient);
+        console.log('SETCLIENT:', setClient)
     
         newClient.onopen = () => {
           console.log('WebSocket Client Connected');
