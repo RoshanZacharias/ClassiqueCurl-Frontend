@@ -59,6 +59,7 @@ const NewSalonNavbar = () => {
           try {
             const data = await axios.get(`${baseURL}/salon-side/salon-notification/${salonId}/`)
             setNotification(data);
+            console.log('setnotifications:', setNotification)
           } catch (error) {
             console.error(error);
           }
