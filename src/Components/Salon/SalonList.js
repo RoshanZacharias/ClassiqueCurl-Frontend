@@ -53,7 +53,7 @@ const SalonList = () => {
                     <td>{salon.mobile}</td>
                     <td>
                         {/* Display the image directly inside the cell */}
-                        <img src={`${baseURL}${salon.salon_image}`} alt="Salon Image" style={{ width: '50px', height: '50px' }} />
+                        <img src={`${salon.salon_image}`} alt="Salon Image" style={{ width: '50px', height: '50px' }} />
                     </td>
                     <td>
                         <Button variant="primary" onClick={() => handleViewClick(salon.id)}>
