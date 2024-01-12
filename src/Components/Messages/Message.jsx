@@ -125,25 +125,50 @@ const ChatComponent = () => {
     const isCurrentUser = selectedAppointment && selectedAppointment.user.id === userId;
 
 
-    const sendMessage = () => {
-        if (message.trim() === '' || !client || !selectedAppointment || client.readyState !== client.OPEN) {
-            console.log("WebSocket is not open");
-            return;
-        }
+    // const sendMessage = () => {
+    //     if (message.trim() === '' || !client || !selectedAppointment || client.readyState !== client.OPEN) {
+    //         console.log("WebSocket is not open");
+    //         return;
+    //     }
     
-        const sendername = user.user.name;
-        console.log('SENDER NAME:', sendername)
-        const updatedChatMessages = [
-            ...chatMessages,
-            { sendername, message },
-          ];
+    //     const sendername = user.user.name;
+    //     console.log('SENDER NAME:', sendername)
+    //     const updatedChatMessages = [
+    //         ...chatMessages,
+    //         { sendername, message },
+    //       ];
 
-          localStorage.setItem('chatMessages', JSON.stringify(updatedChatMessages));
+    //       localStorage.setItem('chatMessages', JSON.stringify(updatedChatMessages));
     
-        client.send(JSON.stringify({ message, sendername }));
-        console.log({message})
-        setMessage('');
-    };
+    //     client.send(JSON.stringify({ message, sendername }));
+    //     console.log({message})
+    //     setMessage('');
+    // };
+
+
+    const sendMessage = () => {
+      if (message.trim() === '' || !client || !selectedAppointment) {
+          console.log("Invalid conditions for sending a message");
+          return;
+      }
+  
+      const sendername = user.user.name;
+      const updatedChatMessages = [
+          ...chatMessages,
+          { sendername, message },
+      ];
+  
+      localStorage.setItem('chatMessages', JSON.stringify(updatedChatMessages));
+  
+      // Check if the WebSocket connection is open before sending a message
+      if (client.readyState === WebSocket.OPEN) {
+          client.send(JSON.stringify({ message, sendername }));
+          setMessage('');
+      } else {
+          console.log("WebSocket is not open");
+      }
+  };
+  
     
     
 
