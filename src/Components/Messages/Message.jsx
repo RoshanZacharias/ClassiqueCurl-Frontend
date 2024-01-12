@@ -75,46 +75,88 @@ const ChatComponent = () => {
 
     
 
-    const connectToWebSocket =(appointmentId) =>{
-        if(!appointmentId) return;
+    // const connectToWebSocket =(appointmentId) =>{
+    //     if(!appointmentId) return;
 
-        const newClient = new W3CWebSocket(`wss://classiquecurl.shop/ws/chat/${appointmentId}/`);
-        setClient(newClient);
-        console.log('***SET CLIENT***', setClient)
-
-
-        newClient.onopen = () =>{
-            console.log('Websocket Client Connected');
-        };
+    //     const newClient = new W3CWebSocket(`wss://classiquecurl.shop/ws/chat/${appointmentId}/`);
+    //     setClient(newClient);
+    //     console.log('***SET CLIENT***', setClient)
 
 
-        newClient.onmessage =(message) =>{
-            const data = JSON.parse(message.data);
-            console.log('Received message:', message.data)
-            setChatMessages((prevMessages) => [...prevMessages, data]);
-        };
+    //     newClient.onopen = () =>{
+    //         console.log('Websocket Client Connected');
+    //     };
 
-        // Fetch existing messages when the WebSocket connection is established
-        const fetchExistingMessages = async () => {
-            try{
-                const response = await fetch(`${baseURL}/chat/${appointmentId}/`);
-                const data = await response.json();
-                console.log('data:', data)
-                const messagesTextArray = data.map(item => ({
-                    message: item.message,
-                    sendername: item.sendername,
-                }));
-                setChatMessages(messagesTextArray);
-            } catch(error) {
-                console.error('Error fetching existing messages:', error);
-            }
-            console.log('Chat messages:', chatMessages);
-        };
-        fetchExistingMessages();
-            return () =>{
-                newClient.close();
-            };
-    };
+
+    //     newClient.onmessage =(message) =>{
+    //         const data = JSON.parse(message.data);
+    //         console.log('Received message:', message.data)
+    //         setChatMessages((prevMessages) => [...prevMessages, data]);
+    //     };
+
+    //     // Fetch existing messages when the WebSocket connection is established
+    //     const fetchExistingMessages = async () => {
+    //         try{
+    //             const response = await fetch(`${baseURL}/chat/${appointmentId}/`);
+    //             const data = await response.json();
+    //             console.log('data:', data)
+    //             const messagesTextArray = data.map(item => ({
+    //                 message: item.message,
+    //                 sendername: item.sendername,
+    //             }));
+    //             setChatMessages(messagesTextArray);
+    //         } catch(error) {
+    //             console.error('Error fetching existing messages:', error);
+    //         }
+    //         console.log('Chat messages:', chatMessages);
+    //     };
+    //     fetchExistingMessages();
+    //         return () =>{
+    //             newClient.close();
+    //         };
+    // };
+
+    const connectToWebSocket = (appointmentId) => {
+      if (!appointmentId) return;
+  
+      const newClient = new W3CWebSocket(`wss://classiquecurl.shop/ws/chat/${appointmentId}/`);
+  
+      newClient.onopen = () => {
+          console.log('Websocket Client Connected');
+  
+          // Fetch existing messages when the WebSocket connection is established
+          const fetchExistingMessages = async () => {
+              try {
+                  const response = await fetch(`${baseURL}/chat/${appointmentId}/`);
+                  const data = await response.json();
+                  console.log('data:', data);
+                  const messagesTextArray = data.map(item => ({
+                      message: item.message,
+                      sendername: item.sendername,
+                  }));
+                  setChatMessages(messagesTextArray);
+              } catch (error) {
+                  console.error('Error fetching existing messages:', error);
+              }
+              console.log('Chat messages:', chatMessages);
+          };
+          fetchExistingMessages();
+  
+          // Set the client in the state after everything is initialized
+          setClient(newClient);
+      };
+  
+      newClient.onmessage = (message) => {
+          const data = JSON.parse(message.data);
+          console.log('Received message:', message.data);
+          setChatMessages((prevMessages) => [...prevMessages, data]);
+      };
+  
+      return () => {
+          newClient.close();
+      };
+  };
+  
 
 
     const handleAppointmentClick = (booking) => {
