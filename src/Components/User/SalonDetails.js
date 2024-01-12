@@ -234,7 +234,7 @@ const SalonDetails = () => {
             <Card style={{ maxHeight: '400px', overflow: 'hidden' }}>
               <Card.Img
                 variant="top"
-                src={`${imageBaseUrl}${salon_image}`}
+                src={`${salon_image}`}
                 alt={salon_name}
                 style={{ maxHeight: '200px', objectFit: 'cover' }}
               />
