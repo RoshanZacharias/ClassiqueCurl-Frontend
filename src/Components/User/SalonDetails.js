@@ -9,7 +9,7 @@ import Table from 'react-bootstrap/Table';
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NewUserNavbar from '../Navbar/NewUserNavbar';
-import { baseURL } from '../../api/api';
+import { baseURL, imageBaseUrl } from '../../api/api';
 
 const SalonDetails = () => {
   const locations = useLocation();  
@@ -234,7 +234,7 @@ const SalonDetails = () => {
             <Card style={{ maxHeight: '400px', overflow: 'hidden' }}>
               <Card.Img
                 variant="top"
-                src={`${baseURL}${salon_image}`}
+                src={`${imageBaseUrl}/${salon_image}`}
                 alt={salon_name}
                 style={{ maxHeight: '200px', objectFit: 'cover' }}
               />
