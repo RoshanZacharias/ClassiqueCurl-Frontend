@@ -53,19 +53,19 @@ const NewSalonNavbar = () => {
       };
 
 
-      useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const data = await axios.get(`${baseURL}/salon-notification/${salonId}/`)
-            setNotification(data);
-          } catch (error) {
-            console.error(error);
-          }
-        };
-        if (salonUser) {
-          fetchData();
-        }
-      }, [salonUser]);
+      // useEffect(() => {
+      //   const fetchData = async () => {
+      //     try {
+      //       const data = await axios.get(`${baseURL}/salon-notification/${salonId}/`)
+      //       setNotification(data);
+      //     } catch (error) {
+      //       console.error(error);
+      //     }
+      //   };
+      //   if (salonUser) {
+      //     fetchData();
+      //   }
+      // }, [salonUser]);
 
 
       useEffect(() => {
