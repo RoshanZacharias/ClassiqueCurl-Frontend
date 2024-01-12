@@ -62,10 +62,10 @@ const NewSalonNavbar = () => {
             console.error(error);
           }
         };
-        if (user) {
+        if (salonUser) {
           fetchData();
         }
-      }, [user]);
+      }, [salonUser]);
 
 
       useEffect(() => {
