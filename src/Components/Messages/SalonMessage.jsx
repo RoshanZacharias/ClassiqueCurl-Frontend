@@ -41,7 +41,7 @@ const SalonChatComponent = () => {
     
         const newClient = new W3CWebSocket(`wss://classiquecurl.shop/ws/chat/${appointmentId}/`);
         setClient(newClient);
-        console.log('SETCLIENT:', setClient)
+       
     
         newClient.onopen = () => {
           console.log('WebSocket Client Connected');
