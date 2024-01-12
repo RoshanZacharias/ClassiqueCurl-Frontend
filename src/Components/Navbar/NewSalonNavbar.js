@@ -6,6 +6,7 @@ import './NewSalonNavbar.css'
 import NotificationModal from '../Notification/NotificationModal';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { baseURL } from '../../api/api';
 
 
 const NewSalonNavbar = () => {
@@ -53,19 +54,19 @@ const NewSalonNavbar = () => {
       };
 
 
-      // useEffect(() => {
-      //   const fetchData = async () => {
-      //     try {
-      //       const data = await axios.get(`${baseURL}/salon-notification/${salonId}/`)
-      //       setNotification(data);
-      //     } catch (error) {
-      //       console.error(error);
-      //     }
-      //   };
-      //   if (salonUser) {
-      //     fetchData();
-      //   }
-      // }, [salonUser]);
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const data = await axios.get(`${baseURL}/salon-side/salon-notification/${salonId}/`)
+            setNotification(data);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+        if (salonUser) {
+          fetchData();
+        }
+      }, [salonUser]);
 
 
       useEffect(() => {
