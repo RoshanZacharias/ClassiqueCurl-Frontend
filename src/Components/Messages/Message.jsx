@@ -196,7 +196,7 @@ const ChatComponent = () => {
           {bookings.map((booking) => (
             <li key={booking.id} onClick={() => handleAppointmentClick(booking)}>
                 <div className="doctor-list-item d-flex align-items-start">
-                  <img src= {`${baseURL}${booking.salon.salon_image}`} alt="Salon" className="rounded-circle mr-1"  />
+                  <img src= {`${booking.salon.salon_image}`} alt="Salon" className="rounded-circle mr-1"  />
                   
                   <div className="flex-grow-1 ml-3">
                     <div className="small">
@@ -213,7 +213,7 @@ const ChatComponent = () => {
             <div>
               <div className="selected-doctor-info d-flex align-items-center">
                 <img
-                  src={`${baseURL}${selectedAppointment.salon.salon_image}`}
+                  src={`${selectedAppointment.salon.salon_image}`}
                   alt={selectedAppointment.salon.salon_name}
                   className="rounded-circle mr-1"
                   width={40}

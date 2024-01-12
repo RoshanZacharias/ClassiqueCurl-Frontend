@@ -102,7 +102,7 @@ const SalonRequestApproval = () => {
           <tr>
             <td>Image</td>
             <td>
-              <ImageModal src={`${baseURL}${salon.salon_image}`} alt="License" />
+              <ImageModal src={`${salon.salon_image}`} alt="License" />
             </td>
           </tr>
 
@@ -116,7 +116,7 @@ const SalonRequestApproval = () => {
           <tr>
             <td>License</td>
             <td>
-              <ImageModal src={`${baseURL}${salon.licence}`} alt="License" />
+              <ImageModal src={`${salon.licence}`} alt="License" />
             </td>
           </tr>
         </tbody>

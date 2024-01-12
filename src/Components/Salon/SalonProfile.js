@@ -96,7 +96,7 @@ const SalonProfile = () => {
                 >
                   {SalonDetails && SalonDetails.profile_picture ? (
                     <img
-                    src={`${baseURL}${SalonDetails.profile_picture}`}
+                    src={`${SalonDetails.profile_picture}`}
                       alt="Salon Profile"
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />

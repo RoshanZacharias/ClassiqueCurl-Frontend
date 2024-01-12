@@ -120,7 +120,7 @@ const UserProfile = () => {
                 >
                   {userDetails && userDetails.profile_picture ? (
                     <img
-                    src={`${baseURL}${userDetails.profile_picture}`}
+                    src={`${userDetails.profile_picture}`}
                       alt="Profile"
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />

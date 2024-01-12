@@ -148,7 +148,7 @@ const SalonHome = () => {
                 <td>{stylist.id}</td>
                 <td>{stylist.stylist_name}</td>
                 <td>
-                  <ImageModal src={`${baseURL}${stylist.stylist_image}`} alt='stylist_image' />
+                  <ImageModal src={`${stylist.stylist_image}`} alt='stylist_image' />
                 </td>
                 
               </tr>
