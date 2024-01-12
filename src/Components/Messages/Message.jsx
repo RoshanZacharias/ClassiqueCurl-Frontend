@@ -69,58 +69,65 @@ const ChatComponent = () => {
         }
       }, []);
 
+
+      useEffect(() => {
+        // When selectedAppointment changes, establish or update WebSocket connection
+        if (selectedAppointment) {
+          connectToWebSocket(selectedAppointment.id);
+        }
+      }, [selectedAppointment]);
+
       
 
       
 
     
 
-    const connectToWebSocket =(appointmentId) =>{
-        if(!appointmentId) return;
-
+      const connectToWebSocket = (appointmentId) => {
+        if (!appointmentId) return;
+    
         const newClient = new W3CWebSocket(`wss://classiquecurl.shop/ws/chat/${appointmentId}/`);
         setClient(newClient);
-        console.log('SET CLIENT:', setClient)
-
-
-        newClient.onopen = () =>{
-            console.log('Websocket Client Connected');
+        console.log('SET CLIENT:', newClient);
+    
+        newClient.onopen = () => {
+          console.log('Websocket Client Connected');
         };
-
-
-        newClient.onmessage =(message) =>{
-            const data = JSON.parse(message.data);
-            console.log('Received message:', message.data)
-            setChatMessages((prevMessages) => [...prevMessages, data]);
+    
+        newClient.onmessage = (message) => {
+          const data = JSON.parse(message.data);
+          console.log('Received message:', message.data);
+          setChatMessages((prevMessages) => [...prevMessages, data]);
         };
-
+    
         // Fetch existing messages when the WebSocket connection is established
         const fetchExistingMessages = async () => {
-            try{
-                const response = await fetch(`${baseURL}/chat/${appointmentId}/`);
-                const data = await response.json();
-                console.log('data:', data)
-                const messagesTextArray = data.map(item => ({
-                    message: item.message,
-                    sendername: item.sendername,
-                }));
-                setChatMessages(messagesTextArray);
-            } catch(error) {
-                console.error('Error fetching existing messages:', error);
-            }
-            console.log('Chat messages:', chatMessages);
+          try {
+            const response = await fetch(`${baseURL}/chat/${appointmentId}/`);
+            const data = await response.json();
+            console.log('data:', data);
+            const messagesTextArray = data.map((item) => ({
+              message: item.message,
+              sendername: item.sendername,
+            }));
+            setChatMessages(messagesTextArray);
+          } catch (error) {
+            console.error('Error fetching existing messages:', error);
+          }
+          console.log('Chat messages:', chatMessages);
         };
         fetchExistingMessages();
-            return () =>{
-                newClient.close();
-            };
-    };
+    
+        return () => {
+          newClient.close();
+        };
+      };
+    
 
 
-    const handleAppointmentClick = (booking) => {
+      const handleAppointmentClick = (booking) => {
         setSelectedAppointment(booking);
         setChatMessages([]);
-        connectToWebSocket(booking.id);
       };
     const isCurrentUser = selectedAppointment && selectedAppointment.user.id === userId;
 
@@ -148,26 +155,26 @@ const ChatComponent = () => {
 
     const sendMessage = () => {
       if (message.trim() === '' || !client || !selectedAppointment) {
-          console.log("Invalid conditions for sending a message");
-          return;
+        console.log('Invalid conditions for sending a message');
+        return;
       }
   
       const sendername = user.user.name;
       const updatedChatMessages = [
-          ...chatMessages,
-          { sendername, message },
+        ...chatMessages,
+        { sendername, message },
       ];
   
       localStorage.setItem('chatMessages', JSON.stringify(updatedChatMessages));
   
       // Check if the WebSocket connection is open before sending a message
       if (client.readyState === WebSocket.OPEN) {
-          client.send(JSON.stringify({ message, sendername }));
-          setMessage('');
+        client.send(JSON.stringify({ message, sendername }));
+        setMessage('');
       } else {
-          console.log("WebSocket is not open");
+        console.log('WebSocket is not open');
       }
-  };
+    };
   
     
     
