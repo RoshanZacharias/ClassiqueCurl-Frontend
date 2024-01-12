@@ -34,7 +34,7 @@ const NewSalonNavbar = () => {
    
     const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
     const [notification, setNotification] = useState([]);
-    // console.log('NOTIFICATIONS:', notification)
+    console.log('NOTIFICATIONS:', notification)
     const [notificationCount, setNotificationCount] = useState(0);
     // console.log('NOTIFI COUNT:', notificationCount)
 
