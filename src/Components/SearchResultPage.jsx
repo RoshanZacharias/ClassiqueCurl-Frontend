@@ -81,7 +81,7 @@ const SearchResultPage = () => {
             onMouseLeave={handleCardLeave}
             onClick={() => handleCardClick(result.id)}
           >
-            <img src={`${baseURL}${result.salon_image}`} alt={result.salon_name} style={imageStyle} />
+            <img src={`${result.salon_image}`} alt={result.salon_name} style={imageStyle} />
             <div style={cardBodyStyle}>
               <h2 style={cardTitleStyle}>{result.salon_name}</h2>
               <p style={cardTextStyle}>Email: {result.email}</p>
