@@ -112,7 +112,7 @@ function SalonLogin() {
 
               <div className="d-flex justify-content-between mx-4 mb-4">
                 
-                <a href="/salon-register">Salon Register</a>
+                <a href="/salon-register">Salon Register ?</a>
               </div>
 
               <MDBBtn className="mb-4 w-75" type='submit' onClick={handleLogin}>Sign in</MDBBtn>

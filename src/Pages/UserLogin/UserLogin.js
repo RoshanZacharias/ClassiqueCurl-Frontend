@@ -117,7 +117,7 @@ function UserLogin() {
 
               <div className="d-flex justify-content-between mx-4 mb-4">
                 
-                <a href="!#">Forgot password?</a>
+                <a href="/login">Register Now</a>
               </div>
 
               <MDBBtn className="mb-4 w-75" type='submit' onClick={handleLogin}>Sign in</MDBBtn>
