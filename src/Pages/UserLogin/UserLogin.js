@@ -126,11 +126,24 @@ function UserLogin() {
                     onSuccess={credentialResponse => {
                       const decoded = jwtDecode(credentialResponse.credential);
                       console.log(decoded);
+                      const fullName = decoded.name;
+                      const spaceIndex = fullName.indexOf(' ');
+                      
+                      let firstName, lastName;
+                      
+                      if (spaceIndex !== -1) {
+                        firstName = fullName.substring(0, spaceIndex);
+                        lastName = fullName.substring(spaceIndex + 1);
+                      } else {
+                        firstName = fullName;
+                        lastName = ''; 
+                      }
 
                       axios
         .post(`${baseURL}/user-google-auth/`, {
           email: decoded.email,
-          name: decoded.given_name,
+          first_name: firstName,
+          last_name: lastName,
         }, { withCredentials: true })
         .then((response) => {
           localStorage.setItem('accessToken', response.data.access);
