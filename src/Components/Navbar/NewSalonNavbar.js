@@ -113,10 +113,10 @@ const NewSalonNavbar = () => {
             socket.close();
           };
         }
-      }, [dispatch, navigate]);
+      }, [salonUser, dispatch, navigate]);
 
 
-
+      
 
       
 
