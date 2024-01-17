@@ -92,11 +92,12 @@ const NewSalonNavbar = () => {
             if (data.type === "notification") {
               console.log("Notification is : ", data.type)
               // Update the notification state with the new notification
-              setNotification((prevNotifications) => [
-                ...prevNotifications,
-                data.payload,
-              ]);
-              // toast.info(`New Notification: ${data.payload.message}`);
+              // setNotification((prevNotifications) => [
+              //   ...prevNotifications,
+              //   data.payload,
+              // ]);
+              setNotification(data.payload);
+              toast.info(`New Notification: ${data.payload.message}`);
             } else if (data.type === "logout") {
               dispatch(logout());
               navigate("/");
