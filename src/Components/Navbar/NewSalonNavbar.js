@@ -96,7 +96,7 @@ const NewSalonNavbar = () => {
                 ...prevNotifications,
                 data.payload,
               ]);
-              toast.info(`New Notification: ${data.payload.message}`);
+              // toast.info(`New Notification: ${data.payload.message}`);
             } else if (data.type === "logout") {
               dispatch(logout());
               navigate("/");
