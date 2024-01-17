@@ -94,6 +94,7 @@ const NewSalonNavbar = () => {
       
             if (data.type === "notification") {
               console.log("Notification is : ", data.type)
+              console.log('*****', data)
               // Update the notification state with the new notification
               // setNotification((prevNotifications) => [
               //   ...prevNotifications,
