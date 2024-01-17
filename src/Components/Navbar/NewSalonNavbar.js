@@ -157,7 +157,7 @@ const NewSalonNavbar = () => {
 
             <li>
                 <Link className='nav-links' onClick={openNotificationModal}>
-                <i className="fa-solid fa-bell"></i>Notification ({data.notification_count})
+                <i className="fa-solid fa-bell"></i>Notification 
                 </Link>
             </li>
 
