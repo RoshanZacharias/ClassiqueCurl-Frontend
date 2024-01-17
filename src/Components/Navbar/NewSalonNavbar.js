@@ -13,6 +13,7 @@ const NewSalonNavbar = () => {
   const navigate = useNavigate();
     const salonUser = useSelector(state=> state.salon)
     
+    
     // const salonId = salonUser.salonUser.id;
 
     let salonId;
@@ -53,6 +54,8 @@ const NewSalonNavbar = () => {
         // setNotification([]);
       };
 
+
+      
 
       useEffect(() => {
         const fetchData = async () => {
@@ -120,7 +123,7 @@ const NewSalonNavbar = () => {
       
 
       
-
+      let not_count = notification.length
 
       
       
@@ -153,7 +156,7 @@ const NewSalonNavbar = () => {
 
             <li>
                 <Link className='nav-links' onClick={openNotificationModal}>
-                <i className="fa-solid fa-bell"></i>Notification ({notification.length})
+                <i className="fa-solid fa-bell"></i>Notification ({not_count})
                 </Link>
             </li>
 
